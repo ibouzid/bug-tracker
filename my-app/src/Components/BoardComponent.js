@@ -7,18 +7,20 @@ function BoardComponent(props) {
     return(
         <div>
             <NavbarComponent/>
-            <BoardColumnComponent
-            title="Open"
-            data={props.openData}/>
-            <BoardColumnComponent
-                title="In Progress"
-                data={props.inProgressData}/>
-            <BoardColumnComponent
-                title="Under Review"
-                data={props.underReviewData}/>
-            <BoardColumnComponent
-                title="Complete"
-                data={props.completeData}/>
+            <div className="board row">
+                <BoardColumnComponent
+                    title="Open"
+                    data={props.openData}/>
+                <BoardColumnComponent
+                    title="In Progress"
+                    data={props.inProgressData}/>
+                <BoardColumnComponent
+                    title="Under Review"
+                    data={props.underReviewData}/>
+                <BoardColumnComponent
+                    title="Complete"
+                    data={props.completeData}/>
+            </div>
         </div>
     )
 
