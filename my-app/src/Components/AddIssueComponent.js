@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import './App.css';
+import '../App.css';
 
-function App() {
+function AddIssueComponent() {
 
     const [issues, setIssues] = useState("");
 
@@ -20,14 +20,19 @@ function App() {
       <div className="jumbotron">
           <h3>Add New Issue: </h3>
           <form className="issueInputForm">
-              <div className="form-group">
+              <div className="row">
+              <div className="form-group col-12">
                   <label for="issueDescInput">Description</label>
-                  <input type="text"
+                  <textarea
+                         rows="10"
+                         cols="50"
                          className="form-control"
                          id="issueDescInput"
                          placeholder="Describe the issue..."/>
               </div>
-              <div className="form-group">
+              </div>
+              <div className="row">
+              <div className="form-group col-2">
                   <label for="issueSeverityInput">Severity</label>
                   <select id="issueSeverityInput" className="form-control">
                       <option value="low">Low</option>
@@ -35,14 +40,15 @@ function App() {
                       <option value="high">High</option>
                   </select>
               </div>
-              <div className="form-group">
+              <div className="form-group col-12">
                   <label for="issueAssignedInput">Assigned To</label>
                   <input type="text"
                          className="form-control"
                          id="issueAssignedInput"
                          placeholder="Enter Responsible..."/>
               </div>
-              <button type="submit" className="btn btn-primary">Add</button>
+              </div>
+              <button type="submit" className="btn btn-primary col-1">Add</button>
           </form>
           <div className="col-lg-12">
               <div id="issuesList ">
@@ -58,4 +64,4 @@ function App() {
   );
 }
 
-export default App;
+export default AddIssueComponent;
