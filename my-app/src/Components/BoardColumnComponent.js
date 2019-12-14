@@ -3,7 +3,7 @@ import IssueCardComponent from "./IssueCardComponent";
 
 function BoardColumnComponent(props) {
     return(
-        <div className="container col-3">
+        <div className="container">
             <div className="row">
                 <h3>{props.title}</h3>
             </div>
