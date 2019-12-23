@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {BrowserRouter as Router,Route, Link} from "react-router-dom";
 import MainPageComponent from "./MainPageComponent";
-import AddIssueComponent from "./AddIssueComponent";
-import BoardComponent from "./BoardComponent";
+import AddIssueComponent from "./IssueComponents/AddIssueComponent";
+import BoardComponent from "./BoardComponents/BoardComponent";
 
 function StartComponent() {
 

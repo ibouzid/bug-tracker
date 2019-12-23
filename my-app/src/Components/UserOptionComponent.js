@@ -9,7 +9,7 @@ function UserOptionComponent(){
             .then(response =>  response.json())
             .then(data => {setUsers(data.data)});
     },[])
-    console.log(users)
+
     let data = users.map(item=>{
         return(
             <option className="form-control" key={item.userId} value={item.userId} >
