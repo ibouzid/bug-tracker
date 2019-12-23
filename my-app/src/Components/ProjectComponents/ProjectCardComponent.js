@@ -1,12 +1,35 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
-function ProjectCardComponent() {
+function ProjectCardComponent(props) {
 
-    return(
-        <div>
+    if(props.data != null){
+        let data = props.data.map(item=>{
+            return(
+                <Link to="/">
+                    <div className="col-3" key={item.projectId} value={item.projectId} >
+                        <div className="card">
+                            <div className="card-body row">
+                                <h5 className="card-title col-12">{item.projectName}</h5>
+                                <p className="card-text col-12"> {item.description}</p>
+                                <p className="col-6">Created: {item.createDate}</p>
+                                <p className="col-6">Project Manager: {item.projectManager}</p>
+                            </div>
+                        </div>
+                    </div>
+                </Link>
 
-        </div>
-    )
+            )
+
+        })
+
+        return(data)
+    }
+    else{
+        return(
+            <div className="display-2">No Data</div>
+        )
+    }
 
 }
 

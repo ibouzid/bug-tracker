@@ -3,33 +3,39 @@ import BoardColumnComponent from "./BoardColumnComponent";
 import NavbarComponent from "../NavbarComponent";
 
 function BoardComponent(props) {
+    let openLength = props.data.filter(item=>item.status =="open").length
+    let inProgressLength = props.data.filter(item=>item.status =="inProgress").length
+    let underReviewLength = props.data.filter(item=>item.status =="underReview").length
+    let completedLength = props.data.filter(item=>item.status =="completed").length
 
     return(
         <div>
             <NavbarComponent/>
-            <div className="board">
+            {(openLength>0 || inProgressLength>0 || underReviewLength>0 || completedLength>0) ?
+                <div className="board">
 
-                {(props.data.filter(item=>item.status =="open").length>0)?
-                    <BoardColumnComponent
-                        title="Open"
-                        data={props.data.filter(item=>item.status =="open")}/> : <></>}
+                    {(openLength>0)?
+                        <BoardColumnComponent
+                            title="Open"
+                            data={props.data.filter(item=>item.status =="open")}/> : <></>}
 
-                {(props.data.filter(item=>item.status =="inProgress").length>0)?
-                    <BoardColumnComponent
-                        title="In Progress"
-                        data={props.data.filter(item=>item.status == "inProgress")}/> : <></>}
+                    {(inProgressLength>0)?
+                        <BoardColumnComponent
+                            title="In Progress"
+                            data={props.data.filter(item=>item.status == "inProgress")}/> : <></>}
 
-                {(props.data.filter(item=>item.status =="inProgress").length>0)?
-                    <BoardColumnComponent
-                        title="In Progress"
-                        data={props.data.filter(item=>item.status == "inProgress")}/> : <></>}
+                    {(underReviewLength>0)?
+                        <BoardColumnComponent
+                            title="Under Review"
+                            data={props.data.filter(item=>item.status == "underReview")}/> : <></>}
 
-                {(props.data.filter(item=>item.status =="completed").length>0)?
-                    <BoardColumnComponent
+                    {(completedLength>0)?
+                        <BoardColumnComponent
                         title="Complete"
                         data={props.data.filter(item=>item.status == "completed")}/> : <></>}
 
-            </div>
+                </div> : <h1 className="board display-2">No Available Issues</h1>}
+
         </div>
     )
 
