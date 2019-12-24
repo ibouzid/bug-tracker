@@ -4,6 +4,8 @@ import MainPageComponent from "./MainPageComponent";
 import AddIssueComponent from "./IssueComponents/AddIssueComponent";
 import BoardComponent from "./BoardComponents/BoardComponent";
 import ProjectsComponent from "./ProjectComponents/ProjectsComponent";
+import NavbarComponent from "./NavbarComponent";
+import IssueDetailedComponent from "./IssueComponents/IssueDetailedComponent";
 
 function StartComponent() {
 
@@ -22,6 +24,7 @@ function StartComponent() {
                 <Route path="/" exact component={MainPageComponent}/>
                 <Route path="/add" exact component={AddIssueComponent}/>
                 <Route path="/projects" exact component={ProjectsComponent}/>
+                <Route path="/issues/:issueId" component={IssueDetailedComponent}/>
                 <Route path="/user" exact render={()=>{
                     return(
                         <BoardComponent data={issues}/>
