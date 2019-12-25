@@ -6,14 +6,23 @@ import DatePicker from "react-datepicker";
 
 function IssueDetailedComponent(props) {
 
-    const [issueData, setIssueData] = useState([])
+    const [issueData, setIssueData] = useState({})
     const param = useParams()
 
     useEffect(()=>{
         fetch(`http://localhost:5000/issues/${param.issueId}`)
             .then(response =>  response.json())
-            .then(data => {setIssueData(data.data)});
-    },[])
+            .then(data => {setIssueData(...data.data)});
+        document.getElementById("description").innerText = issueData.description
+        document.getElementById("title").innerText = issueData.title
+        document.getElementById("severity").value = issueData.severity
+        document.getElementById("ticketType").value = issueData.ticketType
+        document.getElementById("submittedBy").value = issueData.submittedBy
+        document.getElementById("assignedTo").value = issueData.assignedTo
+
+
+    },[issueData.title])
+
 
     function handleChange(){
 
@@ -33,9 +42,9 @@ function IssueDetailedComponent(props) {
                     <body className="container board">
                     <div className="">
                         <div className="row">
-                            <h2 className="col-9"> Add New Issue: </h2>
+                            <h2 className="col-xl-8 col-sm-7"> Add New Issue: </h2>
 
-                            <h2 className="col-2" id="project"
+                            <h2 className="col-xl-2 col-sm-1" id="project"
                                 value={props.projectId}>Project: {issueData.projectName} </h2><br/>
                         </div>
 
@@ -43,8 +52,8 @@ function IssueDetailedComponent(props) {
 
                             <div className="row">
 
-                                <div className="form-group col-12">
-                                    <label htmlFor="issueDescInput">Title</label>
+                                <div className="form-group col-xl-12 col-lg-11 col-md-11 col-sm-10">
+                                    <label for="issueDescInput">Title</label>
                                     <input
                                         onChange={handleChange}
                                         type="text"
@@ -66,7 +75,7 @@ function IssueDetailedComponent(props) {
                                         id="description"
                                         placeholder="Describe the issue..."/>
                                 </div>
-                                <div className="col-4">
+                                <div className="col-xl-4 col-lg-3 col-md-3 col-sm-2">
                                     <div className="form-group">
                                         <label htmlFor="severity">Severity</label>
                                         <select id="severity" className="form-control" onChange={handleChange}>
