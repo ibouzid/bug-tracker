@@ -36,7 +36,7 @@ function IssueDetailedComponent(props) {
                             <h2 className="col-9"> Add New Issue: </h2>
 
                             <h2 className="col-2" id="project"
-                                value={props.projectId}>Project: {props.projectName} </h2><br/>
+                                value={props.projectId}>Project: {issueData.projectName} </h2><br/>
                         </div>
 
                         <form className="issueInputForm">
