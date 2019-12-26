@@ -6,6 +6,17 @@ import DatePicker from "react-datepicker";
 
 function IssueDetailedComponent(props) {
 
+    const [createDate, setCreateDate] = useState("")
+    const [projectId, setProjectId]  = useState("")
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("")
+    const [severity, setSeverity] = useState("")
+    const [ticketType, setTicketType] = useState("")
+    const [status, setStatus] = useState("")
+    const [submittedBy, setSubmittedBy] = useState("")
+    const [assignedTo, setAssignedTo] = useState("")
+    const [points, setPoints] = useState("")
+    const [attachment, setAttachment] = useState("")
     const [issueData, setIssueData] = useState({})
     const param = useParams()
 
@@ -13,24 +24,99 @@ function IssueDetailedComponent(props) {
         fetch(`http://localhost:5000/issues/${param.issueId}`)
             .then(response =>  response.json())
             .then(data => {setIssueData(...data.data)});
-        document.getElementById("description").innerText = issueData.description
-        document.getElementById("title").innerText = issueData.title
+        document.getElementById("description").value = issueData.description
+        document.getElementById("issueTitle").value = issueData.title
         document.getElementById("severity").value = issueData.severity
         document.getElementById("ticketType").value = issueData.ticketType
         document.getElementById("submittedBy").value = issueData.submittedBy
         document.getElementById("assignedTo").value = issueData.assignedTo
-
+        document.getElementById("points").value = issueData.points
+        document.getElementById("status").value = issueData.status
+        document.getElementById("dateLabel").innerHTML = issueData.createDate
+        setCreateDate(issueData.createDate)
+        setSeverity(issueData.severity)
+        setTicketType(issueData.ticketType)
+        setAttachment(issueData.attachment)
+        setPoints(issueData.points)
+        setAssignedTo(issueData.assignedTo)
+        setTitle(issueData.title)
+        setDescription(issueData.description)
+        setSubmittedBy(issueData.submittedBy)
+        setStatus(issueData.status)
 
     },[issueData.title])
 
 
-    function handleChange(){
+    function handleChange(event) {
+        if (event.target.id === "datePicker") {
+            setCreateDate(event.target.value)
+        }
+        if (event.target.id === "issueTitle") {
+            setTitle(event.target.value)
+        }
+        if (event.target.id === "description") {
+            setDescription(event.target.value)
+        }
+        if (event.target.id === "severity") {
+            setSeverity(event.target.value)
+        }
+        if(event.target.id === "ticketType") {
+            setTicketType(event.target.value)
+        }
+        if(event.target.id === "status"){
+            setStatus(event.target.value)
+        }
+        if(event.target.id === "submittedBy") {
+            setSubmittedBy(event.target.value)
+        }
+        if(event.target.id === "assignedTo"){
+            setAssignedTo(event.target.value)
+        }
+        if(event.target.id === "points"){
+            setPoints(event.target.value)
+        }
+        if(event.target.id === "attachment"){
+            //setAttachment(event.target.value)
+            let files = event.target.files
+            let reader = new FileReader()
+            reader.readAsDataURL(files[0])
+            reader.onload = (file) => {setAttachment(file.target.result)}
+
+        }
+    }
+    function handleDate(event) {
+        document.getElementById("dateLabel").innerText = event
+        setCreateDate(event)
 
     }
-    function handleDate(){
+    function handleSubmit(event) {
+        event.preventDefault()
+        let issue = {
+            createDate: createDate,
+            title:title,
+            description: description,
+            severity: severity,
+            ticketType: ticketType,
+            status: status,
+            submittedBy: submittedBy,
+            assignedTo: assignedTo,
+            points: points,
+            attachment: attachment
 
-    }
-    function handleSubmit(){
+        };
+        console.log(issue)
+        fetch(`http://localhost:5000/issues/${param.issueId}`, {
+            method: 'PUT',
+            body: JSON.stringify(issue),
+            headers : {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(response=>response.json())
+            .then(data=>console.log(data))
+            .catch(err=>console.log(err));
+        alert("Issue Successfully Updated!")
+
 
     }
 
@@ -42,9 +128,9 @@ function IssueDetailedComponent(props) {
                     <body className="container board">
                     <div className="">
                         <div className="row">
-                            <h2 className="col-xl-8 col-sm-7"> Add New Issue: </h2>
+                            <h2 className="col-xl-8 col-sm-7"> Edit Issue: </h2>
 
-                            <h2 className="col-xl-2 col-sm-1" id="project"
+                            <h2 className="col-xl-4 col-sm-3" id="project"
                                 value={props.projectId}>Project: {issueData.projectName} </h2><br/>
                         </div>
 
@@ -53,12 +139,12 @@ function IssueDetailedComponent(props) {
                             <div className="row">
 
                                 <div className="form-group col-xl-12 col-lg-11 col-md-11 col-sm-10">
-                                    <label for="issueDescInput">Title</label>
+                                    <label htmlFor="issueTitle">Title</label>
                                     <input
                                         onChange={handleChange}
                                         type="text"
                                         className="form-control"
-                                        id="title"
+                                        id="issueTitle"
                                         placeholder="Describe the issue..."/>
                                 </div>
 
@@ -137,7 +223,7 @@ function IssueDetailedComponent(props) {
                                 </div>
 
 
-                            </div>
+                            </div><br/>
                             <Link to="/">
                                 <button onClick={handleSubmit} type="submit" className="btn btn-primary col-1">Add
                                 </button>
@@ -146,14 +232,6 @@ function IssueDetailedComponent(props) {
                                 <button type="cancel" className="btn btn-light col-1">Cancel</button>
                             </Link>
                         </form>
-                        <div className="col-lg-12">
-                            <div id="issuesList ">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div className="footer-nav">
-                        <p>Izzeddine Bouzid</p>
                     </div>
                     </body>
                 </div>

@@ -17,22 +17,22 @@ function BoardComponent(props) {
                     {(openLength>0)?
                         <BoardColumnComponent
                             title="Open"
-                            data={props.data.filter(item=>item.status =="open")}/> : <></>}
+                            data={props.data.filter(item=>item.status ==="open")}/> : <></>}
 
                     {(inProgressLength>0)?
                         <BoardColumnComponent
                             title="In Progress"
-                            data={props.data.filter(item=>item.status == "inProgress")}/> : <></>}
+                            data={props.data.filter(item=>item.status === "inProgress")}/> : <></>}
 
                     {(underReviewLength>0)?
                         <BoardColumnComponent
                             title="Under Review"
-                            data={props.data.filter(item=>item.status == "underReview")}/> : <></>}
+                            data={props.data.filter(item=>item.status === "underReview")}/> : <></>}
 
                     {(completedLength>0)?
                         <BoardColumnComponent
                         title="Complete"
-                        data={props.data.filter(item=>item.status == "completed")}/> : <></>}
+                        data={props.data.filter(item=>item.status === "completed")}/> : <></>}
 
                 </div> : <h1 className="board display-2">No Available Issues</h1>}
 

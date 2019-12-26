@@ -208,14 +208,6 @@ function AddIssueComponent(props) {
                   <button type="cancel" className="btn btn-light col-1">Cancel</button>
               </Link>
           </form>
-          <div className="col-lg-12">
-              <div id="issuesList ">
-              </div>
-
-          </div>
-      </div>
-      <div className="footer-nav">
-          <p>Izzeddine Bouzid</p>
       </div>
       </body>
     </div>
