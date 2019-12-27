@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Switch,Route} from "react-router-dom";
 import MainPageComponent from "./MainPageComponent";
 import AddIssueComponent from "./IssueComponents/AddIssueComponent";
-import BoardComponent from "./BoardComponents/BoardComponent";
+import IssueBoardComponent from "./IssueComponents/IssueBoardComponent";
 import ProjectsComponent from "./ProjectComponents/ProjectsComponent";
 import IssueDetailedComponent from "./IssueComponents/IssueDetailedComponent";
 
@@ -24,13 +24,12 @@ function StartComponent() {
                 <Route path="/" exact component={MainPageComponent}/>
                 <Route path="/add" exact component={AddIssueComponent}/>
                 <Route path="/projects" exact component={ProjectsComponent}/>
-                <Route path="/issues/:issueId" component={IssueDetailedComponent}/>
-                <Route path="/user" exact render={()=>{
+                <Route path="/projects/:projectId/issues/:issueId" component={IssueDetailedComponent}/>
+                <Route path="/projects/:projectId" render={()=>{
                     return(
-                        <BoardComponent data={issues}/>
+                        <IssueBoardComponent/>
                     )
                 }}/>
-
             </Switch>
         </div>
     )

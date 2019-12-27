@@ -1,7 +1,9 @@
 import React from "react";
 import IssueCardComponent from "./IssueCardComponent";
 
-function BoardColumnComponent(props) {
+function IssueBoardColumnComponent(props) {
+
+
     return(
         <div className="container">
             <div className="row">
@@ -9,7 +11,7 @@ function BoardColumnComponent(props) {
             </div>
             <div className="row">
                 <IssueCardComponent
-                    data={props.data}
+                    data={props.issues}
                 />
             </div>
 
@@ -18,4 +20,4 @@ function BoardColumnComponent(props) {
     )
 
 }
-export default BoardColumnComponent
+export default IssueBoardColumnComponent

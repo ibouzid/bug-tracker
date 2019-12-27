@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom"
+import {Link, useParams} from "react-router-dom";
 import NavbarComponent from "../NavbarComponent";
 import UserOptionComponent from "../UserOptionComponent";
 import DatePicker from "react-datepicker";
@@ -21,7 +21,7 @@ function IssueDetailedComponent(props) {
     const param = useParams()
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/issues/${param.issueId}`)
+        fetch(`http://localhost:5000/projects/${param.projectId}/issues/${param.issueId}`)
             .then(response =>  response.json())
             .then(data => {setIssueData(...data.data)});
         document.getElementById("description").value = issueData.description
@@ -105,7 +105,7 @@ function IssueDetailedComponent(props) {
 
         };
         console.log(issue)
-        fetch(`http://localhost:5000/issues/${param.issueId}`, {
+        fetch(`http://localhost:5000/projects/${param.projectId}/issues/${param.issueId}`, {
             method: 'PUT',
             body: JSON.stringify(issue),
             headers : {

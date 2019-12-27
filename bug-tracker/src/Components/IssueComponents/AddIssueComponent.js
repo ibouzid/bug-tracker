@@ -26,7 +26,6 @@ function AddIssueComponent(props) {
 
 
     function handleSubmit(event) {
-        event.preventDefault()
         let issue = {
             createDate: createDate,
             title:title,
@@ -42,7 +41,7 @@ function AddIssueComponent(props) {
 
         };
         console.log(issue)
-        fetch("http://localhost:5000/issues", {
+        fetch(`http://localhost:5000/issues`, {
             method: 'POST',
             body: JSON.stringify(issue),
             headers : {
@@ -201,7 +200,7 @@ function AddIssueComponent(props) {
 
 
               </div>
-              <Link to="/">
+              <Link to={`/projects/${projectId}/issues`}>
               <button onClick={handleSubmit} type="submit" className="btn btn-primary col-1">Add</button>
               </Link>
               <Link to="/">
