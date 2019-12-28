@@ -15,7 +15,7 @@ function AddIssueComponent(props) {
     const [ticketType, setTicketType] = useState("")
     const [status, setStatus] = useState("")
     const [submittedBy, setSubmittedBy] = useState("")
-    const [assignedTo, setAssignedTo] = useState("")
+    const [userId, setUserId] = useState("")
     const [projectId, setProjectId] = useState("")
     const [points, setPoints] = useState("")
     const [attachment, setAttachment] = useState("")
@@ -34,7 +34,7 @@ function AddIssueComponent(props) {
             ticketType: ticketType,
             status: status,
             submittedBy: submittedBy,
-            assignedTo: assignedTo,
+            userId: userId,
             projectId: projectId,
             points: points,
             attachment: attachment
@@ -78,7 +78,7 @@ function AddIssueComponent(props) {
             setSubmittedBy(event.target.value)
         }
         if(event.target.id === "assignedTo"){
-            setAssignedTo(event.target.value)
+            setUserId(event.target.value)
         }
         if(event.target.id === "points"){
             setPoints(event.target.value)

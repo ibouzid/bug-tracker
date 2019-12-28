@@ -14,7 +14,7 @@ function IssueDetailedComponent(props) {
     const [ticketType, setTicketType] = useState("")
     const [status, setStatus] = useState("")
     const [submittedBy, setSubmittedBy] = useState("")
-    const [assignedTo, setAssignedTo] = useState("")
+    const [userId, setUserId] = useState("")
     const [points, setPoints] = useState("")
     const [attachment, setAttachment] = useState("")
     const [issueData, setIssueData] = useState({})
@@ -29,7 +29,7 @@ function IssueDetailedComponent(props) {
         document.getElementById("severity").value = issueData.severity
         document.getElementById("ticketType").value = issueData.ticketType
         document.getElementById("submittedBy").value = issueData.submittedBy
-        document.getElementById("assignedTo").value = issueData.assignedTo
+        document.getElementById("assignedTo").value = issueData.userId
         document.getElementById("points").value = issueData.points
         document.getElementById("status").value = issueData.status
         document.getElementById("dateLabel").innerHTML = issueData.createDate
@@ -38,7 +38,7 @@ function IssueDetailedComponent(props) {
         setTicketType(issueData.ticketType)
         setAttachment(issueData.attachment)
         setPoints(issueData.points)
-        setAssignedTo(issueData.assignedTo)
+        setUserId(issueData.userId)
         setTitle(issueData.title)
         setDescription(issueData.description)
         setSubmittedBy(issueData.submittedBy)
@@ -70,7 +70,7 @@ function IssueDetailedComponent(props) {
             setSubmittedBy(event.target.value)
         }
         if(event.target.id === "assignedTo"){
-            setAssignedTo(event.target.value)
+            setUserId(event.target.value)
         }
         if(event.target.id === "points"){
             setPoints(event.target.value)
@@ -99,7 +99,7 @@ function IssueDetailedComponent(props) {
             ticketType: ticketType,
             status: status,
             submittedBy: submittedBy,
-            assignedTo: assignedTo,
+            userId: userId,
             points: points,
             attachment: attachment
 

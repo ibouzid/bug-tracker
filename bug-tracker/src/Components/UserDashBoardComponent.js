@@ -8,7 +8,7 @@ function UserDashboardComponent() {
     return(
         <div>
             <NavbarComponent/>
-            <div className="board jumbotron">
+            <div className="board jumbotron text-center">
                 <div className="row">
                     <div className="col-5">
                         <Link to="/">

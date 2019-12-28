@@ -79,10 +79,10 @@ code {
   margin-left: 250px;
 }
 .dashboard-icon{
-  height:50px;
-  width:50px;
   font-size: 100px;
+  margin-left:35%;
 }
 .dashboard-card{
   margin:50px;
+  border: 5px dashed blue;
 }
