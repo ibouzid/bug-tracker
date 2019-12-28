@@ -17,6 +17,7 @@ function ProjectsComponent() {
     return(
         <div>
             <NavbarComponent/>
+            <h1 className="board">Projects</h1><br/>
             <div className="board row">
                 <ProjectCardComponent data={projects}/>
             </div>

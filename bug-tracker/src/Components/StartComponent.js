@@ -5,6 +5,7 @@ import AddIssueComponent from "./IssueComponents/AddIssueComponent";
 import IssueBoardComponent from "./IssueComponents/IssueBoardComponent";
 import ProjectsComponent from "./ProjectComponents/ProjectsComponent";
 import IssueDetailedComponent from "./IssueComponents/IssueDetailedComponent";
+import UserDashboardComponent from "./UserDashBoardComponent";
 
 function StartComponent() {
 
@@ -22,6 +23,7 @@ function StartComponent() {
 
             <Switch>
                 <Route path="/" exact component={MainPageComponent}/>
+                <Route path="/user" exact component={UserDashboardComponent}/>
                 <Route path="/add" exact component={AddIssueComponent}/>
                 <Route path="/projects" exact component={ProjectsComponent}/>
                 <Route path="/projects/:projectId/issues/:issueId" component={IssueDetailedComponent}/>

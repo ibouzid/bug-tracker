@@ -105,7 +105,7 @@ function IssueDetailedComponent(props) {
 
         };
         console.log(issue)
-        fetch(`http://localhost:5000/projects/${param.projectId}/issues/${param.issueId}`, {
+        fetch(`http://localhost:5000/issues/${param.issueId}`, {
             method: 'PUT',
             body: JSON.stringify(issue),
             headers : {

@@ -78,3 +78,11 @@ code {
 .board{
   margin-left: 250px;
 }
+.dashboard-icon{
+  height:50px;
+  width:50px;
+  font-size: 100px;
+}
+.dashboard-card{
+  margin:50px;
+}
