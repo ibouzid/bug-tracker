@@ -6,12 +6,12 @@ function ProjectCardComponent(props) {
     if(props.data != null){
         let data = props.data.map(item=>{
             return(
-                <Link to={`/projects/${item.projectId}`}>
-                    <div className="col-3" key={item.projectId} value={item.projectId} >
+                <Link className="col-3" to={`/projects/${item.projectId}`}>
+                    <div key={item.projectId} value={item.projectId} >
                         <div className="card">
                             <div className="card-body row">
                                 <h5 className="card-title col-12">{item.projectName}</h5>
-                                <p className="card-text col-12"> {item.description}</p>
+                                <p className="card-text col-12"> {item.projectDescription}</p>
                                 <p className="col-6">Created: {item.createDate}</p>
                                 <p className="col-6">Project Manager: {item.projectManager}</p>
                             </div>

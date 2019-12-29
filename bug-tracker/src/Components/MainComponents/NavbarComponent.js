@@ -1,5 +1,5 @@
 import React from "react";
-import izzy from "../Images/izzy.png"
+import izzy from "../../Images/izzy.png"
 
 
 function NavbarComponent() {
@@ -33,7 +33,7 @@ function NavbarComponent() {
 
                     <li className="dash-link">
                         <i className="fas fa-clipboard-list dash-icon"></i>
-                        <a href="#">Board</a>
+                        <a href="#">DashBoard</a>
                     </li>
                     <li className="dash-link active">
                         <i className="fas fa-project-diagram dash-icon"></i>
@@ -44,6 +44,16 @@ function NavbarComponent() {
                                 <li className="sub-item"> All Projects</li>
                                 <li className="sub-item"> My Projects</li>
                             </ul>
+                    </li>
+                    <li className="dash-link active">
+                        <i className="fas fa-bug dash-icon"></i>
+                        <a className="dropdown-toggle"
+                           data-toggle="collapse"
+                           href="#issue-Submenu">Issues</a>
+                        <ul className="collapse list-unstyled" id="issue-Submenu">
+                            <li className="sub-item"> All Issues</li>
+                            <li className="sub-item"> My Issues</li>
+                        </ul>
                     </li>
                     <li className="dash-link">
                         <i className="fas fa-cogs dash-icon"></i>

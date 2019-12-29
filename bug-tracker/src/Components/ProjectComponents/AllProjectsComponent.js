@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import ProjectCardComponent from "./ProjectCardComponent";
-import NavbarComponent from "../NavbarComponent";
+import NavbarComponent from "../MainComponents/NavbarComponent";
 
 
-function ProjectsComponent() {
+function AllProjectsComponent() {
 
     const [projects, setProjects] = useState([])
 
@@ -27,4 +27,4 @@ function ProjectsComponent() {
 
 }
 
-export default ProjectsComponent
+export default AllProjectsComponent

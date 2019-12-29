@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import '../../App.css';
-import UserOptionComponent from "../UserOptionComponent";
+import UserOptionComponent from "../UserComponents/UserOptionComponent";
 import DatePicker from "react-datepicker";
 import {Link} from "react-router-dom";
 

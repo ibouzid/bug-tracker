@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
-import NavbarComponent from "../NavbarComponent";
-import UserOptionComponent from "../UserOptionComponent";
+import NavbarComponent from "../MainComponents/NavbarComponent";
+import UserOptionComponent from "../UserComponents/UserOptionComponent";
 import DatePicker from "react-datepicker";
 
 function IssueDetailedComponent(props) {

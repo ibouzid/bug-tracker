@@ -1,9 +1,18 @@
-import React from "react"
-import NavbarComponent from "./NavbarComponent";
-import {Link} from "react-router-dom";
-import logo from "../Images/izzy.png"
+import React, {useState, useEffect} from "react"
+import NavbarComponent from "../MainComponents/NavbarComponent";
+import {Link, useParams} from "react-router-dom";
 
-function UserDashboardComponent() {
+function UserDashboardComponent(props) {
+
+    const param = useParams()
+    const [issues, setIssues] = useState([])
+    const [projects, setProjects] = useState([])
+
+
+    useEffect(()=>{
+
+    },[])
+
 
     return(
         <div>
