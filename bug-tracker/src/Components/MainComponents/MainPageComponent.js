@@ -1,46 +1,45 @@
-import React, {useEffect, useState} from "react"
+import React, { useState} from "react"
 import {useHistory} from "react-router-dom"
 
 function MainPageComponent() {
 
     const history = useHistory()
 
-    const [users, setUsers] = useState([])
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
 
-    useEffect(()=>{
-        fetch("http://localhost:5000/users")
-            .then(response =>  response.json())
-            .then(data => {setUsers(data.data)});
-        //setLoggedIn(false)
-    },[])
+
 
     function handleChange(event) {
         if (event.target.id === "userName") {
             setUserName(event.target.value)
         }
-        if (event.target.id === "password") {
+        if (event.target.id === "current-password") {
             setPassword(event.target.value)
         }
 
     }
     function handleClick() {
-        let loggedIn = false;
-        let userId;
-
-        users.forEach((user)=>{
-            console.log(user)
-            if(user.userName === userName && user.password === password){
-                loggedIn = true
-                userId = user.userId
-
+        const user = {
+            userName: userName,
+            password: password
+        }
+       fetch(`http://localhost:5000/login`, {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers : {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             }
-        });
-
-        (loggedIn)? history.push(`user/${userId}`) : history.push("loginFail")
+        }).then(response=>response.json())
+            .then(data=>{
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("user", JSON.stringify(data.user));
+                localStorage.setItem("timeStamp", Date.now().toString());
+                history.push("/home");
+            }).catch(err=>console.log(err));
+        history.push("/home");
     }
-
 
     return(
         <div className="container login">
@@ -60,8 +59,8 @@ function MainPageComponent() {
                     </div>
                     <div className="row">
                         <div className="form-group col-6 login-item">
-                            <label htmlFor="Password">Password:</label>
-                            <input id="password"
+                            <label htmlFor="current-password">Password:</label>
+                            <input id="current-password"
                                    type="password"
                                    className="form-control"
                                    placeholder="input password..."
@@ -69,10 +68,8 @@ function MainPageComponent() {
                                    }/>
                         </div>
                     </div>
-                        <button type="submit"
-                                className="btn btn-primary login-btn"
-                                onClick={handleClick}
-                                >Login</button>
+                        <button type="button" onClick={handleClick}
+                                className="btn btn-primary login-btn">Login</button>
 
 
                 </form>

@@ -1,18 +1,24 @@
 import React, {useState, useEffect} from "react"
 import NavbarComponent from "../MainComponents/NavbarComponent";
-import {Link, useParams} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
+import TokenExpiration from "../Helpers/TokenExpiration";
 
-function UserDashboardComponent(props) {
+function UserDashboardComponent() {
+    const token = GetValueFromLocalStorage("token")
+    const timeStamp = GetValueFromLocalStorage("timeStamp")
+    const [jwt, setJWT] = useState(token)
+    const history = useHistory()
 
-    const param = useParams()
-    const [issues, setIssues] = useState([])
-    const [projects, setProjects] = useState([])
-
+    //token expires in "time" milliseconds
+    TokenExpiration(100000)
 
     useEffect(()=>{
-
-    },[])
-
+        setJWT(token)
+        if(!jwt){
+            history.push("/")
+        }
+    },[jwt])
 
     return(
         <div>

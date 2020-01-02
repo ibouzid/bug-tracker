@@ -10,7 +10,7 @@ function AddIssueComponent(props) {
 
     const [createDate, setCreateDate] = useState("")
     const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
+    const [issueDescription, setissueDescription] = useState("")
     const [severity, setSeverity] = useState("")
     const [ticketType, setTicketType] = useState("")
     const [status, setStatus] = useState("")
@@ -25,11 +25,11 @@ function AddIssueComponent(props) {
     },[])
 
 
-    function handleSubmit(event) {
+    function handleSubmit() {
         let issue = {
             createDate: createDate,
             title:title,
-            description: description,
+            issueDescription: issueDescription,
             severity: severity,
             ticketType: ticketType,
             status: status,
@@ -40,7 +40,7 @@ function AddIssueComponent(props) {
             attachment: attachment
 
         };
-        console.log(issue)
+        console.log(JSON.stringify(issue))
         fetch(`http://localhost:5000/issues`, {
             method: 'POST',
             body: JSON.stringify(issue),
@@ -62,8 +62,8 @@ function AddIssueComponent(props) {
         if (event.target.id === "title") {
             setTitle(event.target.value)
         }
-        if (event.target.id === "description") {
-            setDescription(event.target.value)
+        if (event.target.id === "issueDescription") {
+            setissueDescription(event.target.value)
         }
         if (event.target.id === "severity") {
             setSeverity(event.target.value)
@@ -133,7 +133,7 @@ function AddIssueComponent(props) {
                          rows="16"
                          cols="100"
                          className="form-control"
-                         id="description"
+                         id="issueDescription"
                          placeholder="Describe the issue..."/>
               </div>
                   <div className="col-4">

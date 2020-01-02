@@ -16,7 +16,7 @@ function StartComponent() {
 
             <Switch>
                 <Route path="/" exact component={MainPageComponent}/>
-                <Route path="/user/:userId" exact component={UserDashboardComponent}/>
+                <Route path="/home" exact component={UserDashboardComponent}/>
                 <Route path="/add" exact component={AddIssueComponent}/>
                 <Route path="/allProjects" exact component={AllProjectsComponent}/>
                 <Route path="/projects/:projectId/issues/:issueId" component={IssueDetailedComponent}/>
