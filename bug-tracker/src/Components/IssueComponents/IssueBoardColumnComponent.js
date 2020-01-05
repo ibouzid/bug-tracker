@@ -3,7 +3,7 @@ import IssueCardComponent from "./IssueCardComponent";
 
 function IssueBoardColumnComponent(props) {
 
-
+if(props.issues!=0){
     return(
         <div className="container">
             <div className="row">
@@ -18,6 +18,10 @@ function IssueBoardColumnComponent(props) {
         </div>
 
     )
+} else{
+    return <></>
+}
+
 
 }
 export default IssueBoardColumnComponent

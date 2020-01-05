@@ -1,24 +1,24 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react"
+import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 import ProjectCardComponent from "./ProjectCardComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
-import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
-import TokenExpiration from "../Helpers/TokenExpirationInMinutes";
+import TokenExpirationInMinutes from "../Helpers/TokenExpirationInMinutes";
 
+function MyProjectsComponent() {
 
-function AllProjectsComponent() {
-
-    const [projects, setProjects] = useState([])
+    const userId = JSON.parse(GetValueFromLocalStorage("user"))[0].userId
     const jwt = GetValueFromLocalStorage("token")
-    TokenExpiration(30)
+    const [projects, setProjects] = useState([])
+    TokenExpirationInMinutes(30)
+
 
     useEffect(()=>{
-        fetch("http://localhost:5000/projects",
+        fetch(`http://localhost:5000/users/${userId}/projects`,
             {headers:{authorization: `Bearer ${jwt}`}})
             .then(response =>  response.json())
             .then(data => {setProjects(data.data)});
     },[])
-
-
+console.log(projects)
     return(
         <div>
             <NavbarComponent/>
@@ -27,9 +27,8 @@ function AllProjectsComponent() {
                 <ProjectCardComponent data={projects}/>
             </div>
         </div>
-
     )
 
 }
 
-export default AllProjectsComponent
+export default MyProjectsComponent

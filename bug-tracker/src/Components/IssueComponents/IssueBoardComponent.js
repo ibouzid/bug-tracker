@@ -2,14 +2,17 @@ import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom"
 import IssueBoardColumnComponent from "./IssueBoardColumnComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
+import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 
 function IssueBoardComponent() {
 
     const [issues, setIssues] = useState([])
     const params = useParams()
+    const jwt = GetValueFromLocalStorage("token")
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/projects/${params.projectId}/issues`)
+        fetch(`http://localhost:5000/projects/${params.projectId}/issues`,
+                {headers: {authorization: `Bearer ${jwt}`}})
             .then(response =>  response.json())
             .then(data => {setIssues(data.data)});
 

@@ -1,5 +1,7 @@
 import React from "react";
 import izzy from "../../Images/izzy.png"
+import {Link} from "react-router-dom"
+import AllProjectsComponent from "../ProjectComponents/AllProjectsComponent";
 
 
 function NavbarComponent() {
@@ -33,7 +35,7 @@ function NavbarComponent() {
 
                     <li className="dash-link">
                         <i className="fas fa-clipboard-list dash-icon"></i>
-                        <a href="#">DashBoard</a>
+                        <a href="/home">DashBoard</a>
                     </li>
                     <li className="dash-link active">
                         <i className="fas fa-project-diagram dash-icon"></i>
@@ -41,8 +43,12 @@ function NavbarComponent() {
                            data-toggle="collapse"
                            href="#proj-Submenu">Projects</a>
                             <ul className="collapse list-unstyled" id="proj-Submenu">
+                                <Link to="/allProjects" >
                                 <li className="sub-item"> All Projects</li>
+                                </Link>
+                                <Link to="/user/projects">
                                 <li className="sub-item"> My Projects</li>
+                                </Link>
                             </ul>
                     </li>
                     <li className="dash-link active">

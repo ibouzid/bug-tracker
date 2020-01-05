@@ -2,11 +2,10 @@ import React, {useState, useEffect} from "react"
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import {Link, useHistory} from "react-router-dom";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
-import TokenExpiration from "../Helpers/TokenExpiration";
+import TokenExpiration from "../Helpers/TokenExpirationInMinutes";
 
 function UserDashboardComponent() {
     const token = GetValueFromLocalStorage("token")
-    const timeStamp = GetValueFromLocalStorage("timeStamp")
     const [jwt, setJWT] = useState(token)
     const history = useHistory()
 
@@ -58,7 +57,7 @@ function UserDashboardComponent() {
                         </Link>
                     </div>
                     <div className="col-5">
-                        <Link to="/">
+                        <Link to="/users">
                         <div className="card row dashboard-card">
                             <h3 className="card-title col-12">
                                 Users

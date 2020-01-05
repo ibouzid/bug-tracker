@@ -1,35 +1,32 @@
-import React, {useEffect, useState} from "react";
-import ProjectCardComponent from "./ProjectCardComponent";
+import React, {useEffect, useState} from "react"
 import NavbarComponent from "../MainComponents/NavbarComponent";
+import ProjectCardComponent from "../ProjectComponents/ProjectCardComponent";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 import TokenExpiration from "../Helpers/TokenExpirationInMinutes";
+import UserCardComponent from "./UserCardComponent";
 
-
-function AllProjectsComponent() {
-
-    const [projects, setProjects] = useState([])
+function UsersComponent(){
+    const [users, setUsers] = useState([])
     const jwt = GetValueFromLocalStorage("token")
     TokenExpiration(30)
 
     useEffect(()=>{
-        fetch("http://localhost:5000/projects",
+        fetch("http://localhost:5000/users",
             {headers:{authorization: `Bearer ${jwt}`}})
             .then(response =>  response.json())
-            .then(data => {setProjects(data.data)});
+            .then(data => {setUsers(data.data)});
     },[])
-
 
     return(
         <div>
             <NavbarComponent/>
-            <h1 className="board">Projects</h1><br/>
+            <h1 className="board">Users</h1><br/>
             <div className="board row">
-                <ProjectCardComponent data={projects}/>
+                <UserCardComponent data={users}/>
             </div>
         </div>
-
     )
 
 }
 
-export default AllProjectsComponent
+export default UsersComponent
