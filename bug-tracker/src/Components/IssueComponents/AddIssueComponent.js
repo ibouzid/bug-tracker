@@ -25,7 +25,7 @@ function AddIssueComponent(props) {
 
     useEffect(()=>{
         setProjectId(props.location.state.projectId)
-        fetch(`http://localhost:5000/projects/${props.location.state.projectId}`,
+        fetch(`http://localhost:5000/projects/${projectId}`,
             {headers:{authorization: `Bearer ${jwt}`}})
             .then(response =>  response.json())
             .then(data => {setProjectName(data.data[0].projectName)});
@@ -52,6 +52,7 @@ function AddIssueComponent(props) {
             method: 'POST',
             body: JSON.stringify(issue),
             headers : {
+                authorization: `Bearer ${jwt}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }

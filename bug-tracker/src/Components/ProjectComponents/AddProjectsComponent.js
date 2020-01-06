@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 
-function AddProjectsComponent(props) {
+function AddProjectsComponent() {
 
     const [createDate, setCreateDate] = useState("")
     const [projectName, setProjectName] = useState("")
@@ -17,13 +17,12 @@ function AddProjectsComponent(props) {
 
 
     function handleSubmit(event) {
-        event.preventDefault()
         let project = {
             createDate: createDate,
             projectName:projectName,
             projectDescription: projectDescription,
             projectManager: projectManager
-        };
+        }; console.log(project)
         fetch(`http://localhost:5000/projects`, {
             method: 'POST',
             body: JSON.stringify(project),
@@ -72,7 +71,7 @@ function AddProjectsComponent(props) {
                     <div className="row">
 
                         <div className="form-group col-12">
-                            <label for="projectName">Project Name</label>
+                            <label htmlFor="projectName">Project Name</label>
                             <input
                                 onChange={handleChange}
                                 type="text"
@@ -85,7 +84,7 @@ function AddProjectsComponent(props) {
 
                     <div className="row">
                         <div className="form-group col-12">
-                            <label for="projectDescription">Description</label>
+                            <label htmlFor="projectDescription">Description</label>
                             <textarea
                                 onChange={handleChange}
                                 rows="16"
@@ -105,7 +104,7 @@ function AddProjectsComponent(props) {
                                 </select>
                             </div>
                             <div className="form-group col-6">
-                                <label for="assignedTo">Users:</label>
+                                <label htmlFor="assignedTo">Users:</label>
                                 <select id="assignedTo" className="form-control" onChange={handleChange}>
                                     <option>Select Users</option>
                                     <UserOptionComponent/>
@@ -114,7 +113,7 @@ function AddProjectsComponent(props) {
                         </div>
                     <div className="row">
                         <div className="form-group col-2">
-                            <label for="datePicker">Created On:</label>
+                            <label htmlFor="datePicker">Created On:</label>
                             <DatePicker id="datePicker" className="form-control" onChange={handleDate}/>
                             <label id="dateLabel"></label>
                         </div>
