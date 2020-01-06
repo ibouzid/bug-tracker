@@ -18,10 +18,15 @@ function IssueBoardComponent() {
 
     },[])
 
+
         return(
             <div>
                 <NavbarComponent/>
                     <div className="board">
+                        <Link to={{pathname:"/add", state: {projectId: params.projectId}}}>
+                            <button className="board btn-primary add-issue"> Add Issue</button>
+                        </Link>
+
 
                             <IssueBoardColumnComponent
                                 title="Open"

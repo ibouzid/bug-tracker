@@ -23,8 +23,8 @@ function StartComponent() {
                 <Route path="/add" exact component={AddIssueComponent}/>
                 <Route path="/allProjects" exact component={AllProjectsComponent}/>
                 <Route path="/user/projects" exact component={MyProjectsComponent}/>
-                <Route path="/projects/:projectId/issues/:issueId" component={IssueDetailedComponent}/>
-                <Route path="/projects/:projectId" render={()=>{
+                <Route path="/projects/:projectId/issues/:issueId" exact component={IssueDetailedComponent}/>
+                <Route path="/projects/:projectId" exact render={()=>{
                     return(
                         <IssueBoardComponent/>
                     )

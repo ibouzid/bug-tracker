@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../../App.css';
 import UserOptionComponent from "../UserComponents/UserOptionComponent";
 import DatePicker from "react-datepicker";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -19,9 +19,10 @@ function AddIssueComponent(props) {
     const [projectId, setProjectId] = useState("")
     const [points, setPoints] = useState("")
     const [attachment, setAttachment] = useState("")
+    const history = useHistory()
 
     useEffect(()=>{
-        setProjectId(props.projectId)
+        setProjectId(props.location.state.projectId)
     },[])
 
 
@@ -96,6 +97,9 @@ function AddIssueComponent(props) {
         document.getElementById("dateLabel").innerText = event
         setCreateDate(event)
 
+    }
+    function handleCancel() {
+        history.back()
     }
 
   return (
@@ -200,10 +204,10 @@ function AddIssueComponent(props) {
 
 
               </div>
-              <Link to={`/projects/${projectId}/issues`}>
+              <Link to={`/projects/${projectId}`}>
               <button onClick={handleSubmit} type="submit" className="btn btn-primary col-1">Add</button>
               </Link>
-              <Link to="/">
+              <Link to={`/projects/${projectId}`}>
                   <button type="cancel" className="btn btn-light col-1">Cancel</button>
               </Link>
           </form>

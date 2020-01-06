@@ -22,7 +22,12 @@ function AllProjectsComponent() {
     return(
         <div>
             <NavbarComponent/>
-            <h1 className="board">Projects</h1><br/>
+            <div className="row">
+                <h1 className="board col-6">Projects</h1>
+                <button className="board btn-primary"> Add Project</button>
+
+            </div><br/>
+
             <div className="board row">
                 <ProjectCardComponent data={projects}/>
             </div>

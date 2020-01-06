@@ -86,3 +86,7 @@ code {
   margin:50px;
   border: 5px dashed blue;
 }
+.add-issue{
+  margin-left: 75%;
+  padding:10px;
+}

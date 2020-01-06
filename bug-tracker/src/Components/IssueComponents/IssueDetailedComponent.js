@@ -43,6 +43,7 @@ function IssueDetailedComponent(props) {
         setDescription(issueData.description)
         setSubmittedBy(issueData.submittedBy)
         setStatus(issueData.status)
+        setProjectId(param.projectId)
 
     },[issueData.title])
 
@@ -101,7 +102,8 @@ function IssueDetailedComponent(props) {
             submittedBy: submittedBy,
             userId: userId,
             points: points,
-            attachment: attachment
+            attachment: attachment,
+            projectId: projectId
 
         };
         console.log(issue)
@@ -224,11 +226,11 @@ function IssueDetailedComponent(props) {
 
 
                             </div><br/>
-                            <Link to="/">
+                            <Link to="/home">
                                 <button onClick={handleSubmit} type="submit" className="btn btn-primary col-1">Add
                                 </button>
                             </Link>
-                            <Link to="/">
+                            <Link to="/home">
                                 <button type="cancel" className="btn btn-light col-1">Cancel</button>
                             </Link>
                         </form>
