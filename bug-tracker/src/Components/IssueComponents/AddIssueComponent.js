@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react';
 import '../../App.css';
 import UserOptionComponent from "../UserComponents/UserOptionComponent";
 import DatePicker from "react-datepicker";
-import {Link, useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import "react-datepicker/dist/react-datepicker.css";
+import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 
 function AddIssueComponent(props) {
 
@@ -19,10 +20,15 @@ function AddIssueComponent(props) {
     const [projectId, setProjectId] = useState("")
     const [points, setPoints] = useState("")
     const [attachment, setAttachment] = useState("")
-    const history = useHistory()
+    const [projectName, setProjectName] = useState("")
+    const jwt = GetValueFromLocalStorage("token")
 
     useEffect(()=>{
         setProjectId(props.location.state.projectId)
+        fetch(`http://localhost:5000/projects/${props.location.state.projectId}`,
+            {headers:{authorization: `Bearer ${jwt}`}})
+            .then(response =>  response.json())
+            .then(data => {setProjectName(data.data[0].projectName)});
     },[])
 
 
@@ -38,10 +44,10 @@ function AddIssueComponent(props) {
             userId: userId,
             projectId: projectId,
             points: points,
-            attachment: attachment
+            attachment: attachment,
+            projectName: projectName
 
         };
-        console.log(JSON.stringify(issue))
         fetch(`http://localhost:5000/issues`, {
             method: 'POST',
             body: JSON.stringify(issue),
@@ -98,19 +104,15 @@ function AddIssueComponent(props) {
         setCreateDate(event)
 
     }
-    function handleCancel() {
-        history.back()
-    }
 
   return (
-    <div>
       <body className="container">
           <h1>BUG TRACKER <small>by Izzeddine Bouzid</small></h1>
       <div className="jumbotron">
           <div className="row">
               <h2 className="col-9"> Add New Issue: </h2>
 
-              <h2 className="col-2" id="project" value={props.projectId}>Project: {props.projectName} </h2><br/>
+              <h2 className="col-2" id="project" value={props.projectId}>Project: {projectName} </h2><br/>
           </div>
 
           <form className="issueInputForm">
@@ -118,7 +120,7 @@ function AddIssueComponent(props) {
               <div className="row">
 
                   <div className="form-group col-12">
-                      <label for="issueDescInput">Title</label>
+                      <label htmlFor="issueDescInput">Title</label>
                       <input
                           onChange={handleChange}
                           type="text"
@@ -131,7 +133,7 @@ function AddIssueComponent(props) {
 
               <div className="row">
               <div className="form-group col-8">
-                  <label for="issueDescInput">Description</label>
+                  <label htmlFor="issueDescInput">Description</label>
                   <textarea
                          onChange={handleChange}
                          rows="16"
@@ -167,7 +169,7 @@ function AddIssueComponent(props) {
                           </select>
                       </div>
                       <div className="form-group">
-                          <label for="assignedTo">Assigned To:</label>
+                          <label htmlFor="assignedTo">Assigned To:</label>
                           <select id="assignedTo" className="form-control" onChange={handleChange}>
                               <option>Select User</option>
                               <UserOptionComponent/>
@@ -187,17 +189,17 @@ function AddIssueComponent(props) {
               </div>
               <div className="row">
                   <div className="form-group col-2">
-                      <label for="datePicker">Created On:</label>
+                      <label htmlFor="datePicker">Created On:</label>
                       <DatePicker id="datePicker" className="form-control" onChange={handleDate}/>
                       <label id="dateLabel"></label>
                   </div>
 
                   <div className="form-group col-6">
-                      <label for="points">Points</label>
+                      <label htmlFor="points">Points</label>
                       <input type="text" id="points" className="form-control" onChange={handleChange}/>
                   </div>
                   <div className="form-group  col-4">
-                      <label for="attachment">Attachment:</label>
+                      <label htmlFor="attachment">Attachment:</label>
                       <input type="file" id="attachment" onChange={handleChange}/>
                   </div>
 
@@ -213,7 +215,6 @@ function AddIssueComponent(props) {
           </form>
       </div>
       </body>
-    </div>
   );
 }
 

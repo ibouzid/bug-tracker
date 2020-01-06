@@ -9,7 +9,7 @@ function IssueDetailedComponent(props) {
     const [createDate, setCreateDate] = useState("")
     const [projectId, setProjectId]  = useState("")
     const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
+    const [issueDescription, setIssueDescription] = useState("")
     const [severity, setSeverity] = useState("")
     const [ticketType, setTicketType] = useState("")
     const [status, setStatus] = useState("")
@@ -24,7 +24,7 @@ function IssueDetailedComponent(props) {
         fetch(`http://localhost:5000/projects/${param.projectId}/issues/${param.issueId}`)
             .then(response =>  response.json())
             .then(data => {setIssueData(...data.data)});
-        document.getElementById("description").value = issueData.description
+        document.getElementById("issueDescription").value = issueData.issueDescription
         document.getElementById("issueTitle").value = issueData.title
         document.getElementById("severity").value = issueData.severity
         document.getElementById("ticketType").value = issueData.ticketType
@@ -40,7 +40,7 @@ function IssueDetailedComponent(props) {
         setPoints(issueData.points)
         setUserId(issueData.userId)
         setTitle(issueData.title)
-        setDescription(issueData.description)
+        setIssueDescription(issueData.issueDescription)
         setSubmittedBy(issueData.submittedBy)
         setStatus(issueData.status)
         setProjectId(param.projectId)
@@ -55,8 +55,8 @@ function IssueDetailedComponent(props) {
         if (event.target.id === "issueTitle") {
             setTitle(event.target.value)
         }
-        if (event.target.id === "description") {
-            setDescription(event.target.value)
+        if (event.target.id === "issueDescription") {
+            setIssueDescription(event.target.value)
         }
         if (event.target.id === "severity") {
             setSeverity(event.target.value)
@@ -95,7 +95,7 @@ function IssueDetailedComponent(props) {
         let issue = {
             createDate: createDate,
             title:title,
-            description: description,
+            issueDescription: issueDescription,
             severity: severity,
             ticketType: ticketType,
             status: status,
@@ -106,7 +106,6 @@ function IssueDetailedComponent(props) {
             projectId: projectId
 
         };
-        console.log(issue)
         fetch(`http://localhost:5000/issues/${param.issueId}`, {
             method: 'PUT',
             body: JSON.stringify(issue),
@@ -154,13 +153,13 @@ function IssueDetailedComponent(props) {
 
                             <div className="row">
                                 <div className="form-group col-8">
-                                    <label htmlFor="issueDescInput">Description</label>
+                                    <label htmlFor="issueDescription">Description</label>
                                     <textarea
                                         onChange={handleChange}
                                         rows="16"
                                         cols="100"
                                         className="form-control"
-                                        id="description"
+                                        id="issueDescription"
                                         placeholder="Describe the issue..."/>
                                 </div>
                                 <div className="col-xl-4 col-lg-3 col-md-3 col-sm-2">

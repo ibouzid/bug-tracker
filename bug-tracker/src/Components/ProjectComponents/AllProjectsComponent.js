@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import ProjectCardComponent from "./ProjectCardComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
@@ -23,8 +24,11 @@ function AllProjectsComponent() {
         <div>
             <NavbarComponent/>
             <div className="row">
-                <h1 className="board col-6">Projects</h1>
-                <button className="board btn-primary"> Add Project</button>
+                <h1 className="board col-6">All Projects</h1>
+                <Link to="/addProject">
+                    <button className="board btn-primary"> Add Project</button>
+                </Link>
+
 
             </div><br/>
 

@@ -6,7 +6,7 @@ function ProjectCardComponent(props) {
     if(props.data != null){
         let data = props.data.map(item=>{
             return(
-                <Link key={item.projectId} className="col-3" to={`/projects/${item.projectId}`}>
+                <Link key={item.projectId} className="col-3" to={{pathname:`/projects/${item.projectId}`, state:{projectName:item.projectName}}}>
                     <div value={item.projectId} >
                         <div className="card">
                             <div className="card-body row">

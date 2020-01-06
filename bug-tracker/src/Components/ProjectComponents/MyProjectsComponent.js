@@ -3,6 +3,7 @@ import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 import ProjectCardComponent from "./ProjectCardComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import TokenExpirationInMinutes from "../Helpers/TokenExpirationInMinutes";
+import {Link} from "react-router-dom";
 
 function MyProjectsComponent() {
 
@@ -22,7 +23,13 @@ console.log(projects)
     return(
         <div>
             <NavbarComponent/>
-            <h1 className="board">Projects</h1><br/>
+            <div className="row">
+                <h1 className="board col-6">My Projects</h1>
+                <Link to="/addProject">
+                    <button className="board btn-primary"> Add Project</button>
+                </Link>
+            </div><br/>
+
             <div className="board row">
                 <ProjectCardComponent data={projects}/>
             </div>

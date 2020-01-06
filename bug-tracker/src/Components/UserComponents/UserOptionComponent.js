@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from "react";
+import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 
 function UserOptionComponent(){
 
     const [users, setUsers]  = useState([]);
+    const jwt = GetValueFromLocalStorage("token")
 
     useEffect(()=>{
-        fetch("http://localhost:5000/users")
+        fetch("http://localhost:5000/users",
+            {headers:{authorization: `Bearer ${jwt}`}})
             .then(response =>  response.json())
             .then(data => {setUsers(data.data)});
     },[])

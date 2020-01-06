@@ -4,7 +4,7 @@ import IssueBoardColumnComponent from "./IssueBoardColumnComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 
-function IssueBoardComponent() {
+function IssueBoardComponent(props) {
 
     const [issues, setIssues] = useState([])
     const params = useParams()
@@ -23,7 +23,7 @@ function IssueBoardComponent() {
             <div>
                 <NavbarComponent/>
                     <div className="board">
-                        <Link to={{pathname:"/add", state: {projectId: params.projectId}}}>
+                        <Link to={{pathname:"/addIssue", state: {projectId: params.projectId}}}>
                             <button className="board btn-primary add-issue"> Add Issue</button>
                         </Link>
 
