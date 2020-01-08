@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 
 import "react-datepicker/dist/react-datepicker.css";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
+import UserOptionLabelComponent from "../UserComponents/UserOptionLabelComponent";
 
 function AddProjectsComponent() {
 
@@ -13,10 +14,13 @@ function AddProjectsComponent() {
     const [projectName, setProjectName] = useState("")
     const [projectDescription, setProjectDescription] = useState("")
     const [projectManager, setProjectManager] = useState("")
+    const [users, setUsers] = useState([]);
     const jwt = GetValueFromLocalStorage("token")
 
 
     function handleSubmit(event) {
+        event.preventDefault()
+        console.log(users)
         let project = {
             createDate: createDate,
             projectName:projectName,
@@ -51,6 +55,20 @@ function AddProjectsComponent() {
         if (event.target.id === "projectManager") {
             setProjectManager(event.target.value)
         }
+        // if (event.target.id === "users") {
+        //     let options = event.target.options;
+        //     let selectOption = document.getElementById("selectUser")
+        //
+        //     for (let i = 0; i < options.length; i++) {
+        //         if (options[i].selected) {
+        //             let user = {id: options[i].value, name: options[i].innerHTML}
+        //                 setUsers(prevState => [...prevState, user])
+        //                 options[i].hidden = true
+        //         }
+        //     } selectOption.selected = true
+        //
+        //
+        // }
     }
     function handleDate(event) {
         document.getElementById("dateLabel").innerText = event
@@ -103,13 +121,13 @@ function AddProjectsComponent() {
                                     <UserOptionComponent/>
                                 </select>
                             </div>
-                            <div className="form-group col-6">
-                                <label htmlFor="assignedTo">Users:</label>
-                                <select id="assignedTo" className="form-control" onChange={handleChange}>
-                                    <option>Select Users</option>
-                                    <UserOptionComponent/>
-                                </select>
-                            </div>
+                            {/*<div className="form-group col-6">*/}
+                            {/*    <label htmlFor="assignedTo">Users:</label><div><UserOptionLabelComponent users={users}/></div>*/}
+                            {/*    <select id="users" className="form-control" onChange={handleChange}>*/}
+                            {/*        <option  id="selectUser" >Select Users</option>*/}
+                            {/*        <UserOptionComponent/>*/}
+                            {/*    </select>*/}
+                            {/*</div>*/}
                         </div>
                     <div className="row">
                         <div className="form-group col-2">

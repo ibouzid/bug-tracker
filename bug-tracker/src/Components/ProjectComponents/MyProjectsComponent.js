@@ -25,7 +25,7 @@ console.log(projects)
             <NavbarComponent/>
             <div className="row">
                 <h1 className="board col-6">My Projects</h1>
-                <Link to="/addProject">
+                <Link to="/projects/add">
                     <button className="board btn-primary"> Add Project</button>
                 </Link>
             </div><br/>

@@ -25,7 +25,7 @@ function AllProjectsComponent() {
             <NavbarComponent/>
             <div className="row">
                 <h1 className="board col-6">All Projects</h1>
-                <Link to="/addProject">
+                <Link to="/projects/add">
                     <button className="board btn-primary"> Add Project</button>
                 </Link>
 

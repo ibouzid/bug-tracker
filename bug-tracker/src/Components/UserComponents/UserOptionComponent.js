@@ -15,7 +15,7 @@ function UserOptionComponent(){
 
     let data = users.map(item=>{
         return(
-            <option className="form-control" key={item.userId} value={item.userId} >
+            <option className="form-control" id={item.userId} key={item.userId} value={item.userId} name={`${item.firstName} ${item.lastName}`}>
                 {item.firstName} {item.lastName}
             </option>)
 

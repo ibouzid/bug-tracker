@@ -23,7 +23,7 @@ function IssueBoardComponent(props) {
             <div>
                 <NavbarComponent/>
                     <div className="board">
-                        <Link to={{pathname:"/addIssue", state: {projectId: params.projectId}}}>
+                        <Link to={{pathname:"/issues/add", state: {projectId: params.projectId}}}>
                             <button className="board btn-primary add-issue"> Add Issue</button>
                         </Link>
 

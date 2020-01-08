@@ -90,3 +90,11 @@ code {
   margin-left: 75%;
   padding:10px;
 }
+.delete-confirmation{
+  margin: 50px;
+  padding: 100px;
+  border: red solid 10px;
+}
+.delete-project-background{
+  background-color: red;
+}

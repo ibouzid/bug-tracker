@@ -9,6 +9,7 @@ import UserDashboardComponent from "../UserComponents/UserDashBoardComponent";
 import MyProjectsComponent from "../ProjectComponents/MyProjectsComponent";
 import UsersComponent from "../UserComponents/UsersComponent";
 import AddProjectsComponent from "../ProjectComponents/AddProjectsComponent";
+import DeleteProjectsComponent from "../ProjectComponents/DeleteProjectsComponent";
 
 function StartComponent() {
 
@@ -21,10 +22,11 @@ function StartComponent() {
                 <Route path="/" exact component={MainPageComponent}/>
                 <Route path="/home" exact component={UserDashboardComponent}/>
                 <Route path="/users" exact component={UsersComponent}/>
-                <Route path="/addIssue" exact component={AddIssueComponent}/>
-                <Route path="/addProject" exact component={AddProjectsComponent}/>
-                <Route path="/allProjects" exact component={AllProjectsComponent}/>
-                <Route path="/user/projects" exact component={MyProjectsComponent}/>
+                <Route path="/issues/add" exact component={AddIssueComponent}/>
+                <Route path="/projects/add" exact component={AddProjectsComponent}/>
+                <Route path="/projects/all" exact component={AllProjectsComponent}/>
+                <Route path="/projects/user" exact component={MyProjectsComponent}/>
+                <Route path="/projects/:projectId/delete" exact component={DeleteProjectsComponent}/>
                 <Route path="/projects/:projectId/issues/:issueId" exact component={IssueDetailedComponent}/>
                 <Route path="/projects/:projectId" exact render={()=>{
                     return(

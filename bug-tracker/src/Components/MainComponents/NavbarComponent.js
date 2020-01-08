@@ -43,10 +43,10 @@ function NavbarComponent() {
                            data-toggle="collapse"
                            href="#proj-Submenu">Projects</a>
                             <ul className="collapse list-unstyled" id="proj-Submenu">
-                                <Link to="/allProjects" >
+                                <Link to="/projects/all" >
                                 <li className="sub-item"> All Projects</li>
                                 </Link>
-                                <Link to="/user/projects">
+                                <Link to="/projects/user">
                                 <li className="sub-item"> My Projects</li>
                                 </Link>
                             </ul>
