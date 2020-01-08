@@ -5,7 +5,7 @@ function DeleteProjectsComponent(props) {
     const params = useParams()
     const history = useHistory()
 
-    function handleSubmit() {
+    function handleClick() {
 
          fetch("http://localhost:5000/projects", {
             method: 'DELETE',
@@ -16,20 +16,18 @@ function DeleteProjectsComponent(props) {
             }
         }).then(res => res.json())
             .then(res => console.log(res))
-        history.push("/home")
+        history.push("/projects/all")
     }
     function handleCancel() {
-        history.push("/allProjects")
+        history.push("/projects/all")
     }
     return(
-        <form>
             <div className="text-center delete-confirmation">
                 <h1> Are you sure you want to delete {props.location.state.projectName}?</h1>
-                <button className="btn-danger" onSubmit={handleSubmit}>Yes</button>
+                <button className="btn-danger" onClick={handleClick}>Yes</button>
                 <button className="btn-primary" onClick={handleCancel}>No</button>
             </div>
 
-        </form>
     )
 
 }
