@@ -18,12 +18,11 @@ function IssueBoardComponent(props) {
             .then(data => {setIssues(data.data)});
 
     },[])
-    console.log(issues)
-
 
         return(
             <div>
                 <NavbarComponent/>
+                <h1 className="board">Project: {params.projectName} </h1>
                     <div className="board">
                         <Link to={{pathname:"/issues/add", state: {projectId: params.projectId}}}>
                             <button className="board btn-primary add-issue"> Add Issue</button>

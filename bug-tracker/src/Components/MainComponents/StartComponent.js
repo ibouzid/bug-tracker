@@ -28,7 +28,7 @@ function StartComponent() {
                 <Route path="/projects/user" exact component={MyProjectsComponent}/>
                 <Route path="/projects/:projectId/delete" exact component={DeleteProjectsComponent}/>
                 <Route path="/projects/:projectId/issues/:issueId" exact component={IssueDetailedComponent}/>
-                <Route path="/projects/:projectId" exact render={()=>{
+                <Route path="/projects/:projectId/:projectName" exact render={()=>{
                     return(
                         <IssueBoardComponent/>
                     )

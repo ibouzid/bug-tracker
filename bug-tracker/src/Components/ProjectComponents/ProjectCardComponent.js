@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 
 function ProjectCardComponent(props) {
@@ -10,10 +10,8 @@ function ProjectCardComponent(props) {
                          <div value={item.projectId} >
                             <div className="card">
                                 <div className="card-body row">
-                                    <Link key={item.projectId} className=""
-                                          to={{pathname:`/projects/${item.projectId}`,
-                                              state:{projectName:item.projectName}}}>
-                                    <h5 className="card-title col-12">{item.projectName}</h5>
+                                    <Link to={`/projects/${item.projectId}/${item.projectName}`}>
+                                    <h3 className="card-title col-12">{item.projectName}</h3>
                                     </Link>
                                     <p className="card-text col-12 card-description"> {item.projectDescription}</p>
                                     <p className="col-6">Created: {item.createDate}</p>
