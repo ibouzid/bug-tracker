@@ -150,7 +150,7 @@ function AddIssueComponent(props) {
                           <select id="severity" className="form-control" onChange={handleChange}>
                               <option>Select Severity</option>
                               <option value="low">Low</option>
-                              <option value="meduim">Medium</option>
+                              <option value="medium">Medium</option>
                               <option value="high">High</option>
                           </select>
                       </div>
@@ -208,7 +208,7 @@ function AddIssueComponent(props) {
 
 
               </div>
-              <Link to={`/projects/${projectId}`}>
+              <Link to={`/projects/${projectId}/${projectName}`}>
               <button onClick={handleSubmit} type="submit" className="btn btn-primary col-1">Add</button>
               </Link>
               <Link to={`/projects/${projectId}`}>

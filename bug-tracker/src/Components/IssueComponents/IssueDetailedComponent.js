@@ -92,7 +92,6 @@ function IssueDetailedComponent(props) {
 
     }
     function handleSubmit(event) {
-        event.preventDefault()
         let issue = {
             createDate: createDate,
             title:title,
@@ -104,7 +103,8 @@ function IssueDetailedComponent(props) {
             userId: userId,
             points: points,
             attachment: attachment,
-            projectId: projectId
+            projectId: projectId,
+            lastUpdated: Date().toString()
 
         };
         fetch(`http://localhost:5000/issues/${param.issueId}`, {
@@ -122,7 +122,6 @@ function IssueDetailedComponent(props) {
 
     }
 
-    console.log(issueData)
         return(
             <div>
                 <NavbarComponent/>
@@ -160,8 +159,7 @@ function IssueDetailedComponent(props) {
                                         rows="16"
                                         cols="100"
                                         className="form-control"
-                                        id="issueDescription"
-                                        placeholder="Describe the issue..."/>
+                                        id="issueDescription"/>
                                 </div>
                                 <div className="col-xl-4 col-lg-3 col-md-3 col-sm-2">
                                     <div className="form-group">
@@ -226,11 +224,11 @@ function IssueDetailedComponent(props) {
 
 
                             </div><br/>
-                            <Link to="/home">
+                            <Link to={`/projects/${projectId}/${issueData.projectName}`}>
                                 <button onClick={handleSubmit} type="submit" className="btn btn-primary col-1">Add
                                 </button>
                             </Link>
-                            <Link to="/home">
+                            <Link to={`/projects/${projectId}/${issueData.projectName}`}>
                                 <button type="cancel" className="btn btn-light col-1">Cancel</button>
                             </Link>
                         </form>

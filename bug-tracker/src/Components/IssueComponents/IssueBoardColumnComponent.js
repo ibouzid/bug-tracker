@@ -17,17 +17,15 @@ function IssueBoardColumnComponent(props) {
 if(props.issues!=0){
     return(
         <div className="container">
-            <div className="row">
+            <div className="row ml-2">
                 <h3>{props.title}</h3>
             </div>
             <div className="row">
-                <IssueCardComponent
-                    data={issuesOnCurrentPage}
-                />
-                <PaginationComponent  totalIssues={props.issues.length} issuesPerPage ={issuesPerPage} handlePageClick={handlePageClick} />
-
+                <IssueCardComponent data={issuesOnCurrentPage}/>
             </div>
-
+            <div className="ml-2">
+                <PaginationComponent  totalIssues={props.issues.length} issuesPerPage ={issuesPerPage} handlePageClick={handlePageClick} />
+            </div>
         </div>
 
     )
