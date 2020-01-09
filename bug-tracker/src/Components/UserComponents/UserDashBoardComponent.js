@@ -4,20 +4,21 @@ import {Link, useHistory} from "react-router-dom";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 import TokenExpiration from "../Helpers/TokenExpirationInMinutes";
 
-function UserDashboardComponent() {
+function UserDashboardComponent(props) {
     const token = GetValueFromLocalStorage("token")
-    const [jwt, setJWT] = useState(token)
+    const [jwt] = useState(token)
     const history = useHistory()
-
     TokenExpiration()
 
     useEffect(()=>{
-        setJWT(token)
         if(!jwt){
-            history.push("/")
+            history.push("/logout")
+        }if(props.location.state.loading){
+            return(
+                <div>loading</div>
+            )
         }
     },[jwt])
-
     return(
         <div>
             <NavbarComponent/>

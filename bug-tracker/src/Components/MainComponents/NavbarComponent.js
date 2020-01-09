@@ -1,11 +1,16 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import izzy from "../../Images/izzy.png"
 import {Link} from "react-router-dom"
-import AllProjectsComponent from "../ProjectComponents/AllProjectsComponent";
+import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 
 
 function NavbarComponent() {
 
+    const userInfo = GetValueFromLocalStorage("user")
+    const [user] = useState(JSON.parse(userInfo))
+    useEffect(()=>{
+    },[])
+    console.log(user)
     return(
         <div className="wrapper">
 
@@ -21,10 +26,10 @@ function NavbarComponent() {
                     <div className="col">
                         <ul className="list-unstyled personal-info">
                             <li>
-                                <p> Izzy</p>
+                                <p> {user[0].firstName} {user[0].lastName}</p>
                             </li>
                             <li>
-                                <p> Software Developer</p>
+                                <p> {user[0].role}</p>
                             </li>
                         </ul>
                     </div>
@@ -43,8 +48,11 @@ function NavbarComponent() {
                            data-toggle="collapse"
                            href="#proj-Submenu">Projects</a>
                             <ul className="collapse list-unstyled" id="proj-Submenu">
-                                <Link to="/projects/all" >
-                                <li className="sub-item"> All Projects</li>
+                                <Link to={{
+                                    pathname: '/projects/all',
+                                    state: { user: user }
+                                }}>
+                                    <li className="sub-item"> All Projects</li>
                                 </Link>
                                 <Link to="/projects/user">
                                 <li className="sub-item"> My Projects</li>

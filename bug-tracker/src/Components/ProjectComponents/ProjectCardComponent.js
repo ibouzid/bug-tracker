@@ -6,7 +6,7 @@ function ProjectCardComponent(props) {
     if(props.data != null){
         let data = props.data.map(item=>{
             return(
-                <div className="col-3">
+                <div key={item.projectId} className="col-3">
                          <div value={item.projectId} >
                             <div className="card">
                                 <div className="card-body row">
@@ -18,7 +18,7 @@ function ProjectCardComponent(props) {
                                     <p className="col-6">Project Manager: {item.projectManager}</p>
                                 </div>
                                 <div>
-                                    <Link>
+                                    <Link to="/projects">
                                         <button className="col-6 btn-outline-secondary">Edit</button>
                                     </Link>
 

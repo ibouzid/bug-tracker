@@ -5,13 +5,13 @@ import NavbarComponent from "../MainComponents/NavbarComponent";
 import TokenExpirationInMinutes from "../Helpers/TokenExpirationInMinutes";
 import {Link} from "react-router-dom";
 
-function MyProjectsComponent() {
+function MyProjectsComponent(props) {
 
     const userId = JSON.parse(GetValueFromLocalStorage("user"))[0].userId
-    const jwt = GetValueFromLocalStorage("token")
+    const token = GetValueFromLocalStorage("token")
+    const [jwt] = useState(token)
     const [projects, setProjects] = useState([])
     TokenExpirationInMinutes()
-
 
     useEffect(()=>{
         fetch(`http://localhost:5000/users/${userId}/projects`,
@@ -19,7 +19,6 @@ function MyProjectsComponent() {
             .then(response =>  response.json())
             .then(data => {setProjects(data.data)});
     },[])
-console.log(projects)
     return(
         <div>
             <NavbarComponent/>

@@ -3,10 +3,10 @@ import {Link, useParams} from "react-router-dom";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import UserOptionComponent from "../UserComponents/UserOptionComponent";
 import DatePicker from "react-datepicker";
+import TokenExpirationInMinutes from "../Helpers/TokenExpirationInMinutes";
 
 function IssueDetailedComponent(props) {
 
-    const [createDate, setCreateDate] = useState("")
     const [projectId, setProjectId]  = useState("")
     const [title, setTitle] = useState("")
     const [issueDescription, setIssueDescription] = useState("")
@@ -19,6 +19,7 @@ function IssueDetailedComponent(props) {
     const [attachment, setAttachment] = useState("")
     const [issueData, setIssueData] = useState({})
     const param = useParams()
+    TokenExpirationInMinutes()
 
     useEffect(()=>{
         fetch(`http://localhost:5000/projects/${param.projectId}/issues/${param.issueId}`)
@@ -32,8 +33,6 @@ function IssueDetailedComponent(props) {
         document.getElementById("assignedTo").innerHTML = issueData.userId
         document.getElementById("points").value = issueData.points
         document.getElementById("status").value = issueData.status
-        document.getElementById("dateLabel").innerHTML = issueData.createDate
-        setCreateDate(issueData.createDate)
         setSeverity(issueData.severity)
         setTicketType(issueData.ticketType)
         setAttachment(issueData.attachment)
@@ -50,9 +49,6 @@ function IssueDetailedComponent(props) {
 
 
     function handleChange(event) {
-        if (event.target.id === "datePicker") {
-            setCreateDate(event.target.value)
-        }
         if (event.target.id === "issueTitle") {
             setTitle(event.target.value)
         }
@@ -86,14 +82,8 @@ function IssueDetailedComponent(props) {
 
         }
     }
-    function handleDate(event) {
-        document.getElementById("dateLabel").innerText = event
-        setCreateDate(event)
-
-    }
     function handleSubmit(event) {
         let issue = {
-            createDate: createDate,
             title:title,
             issueDescription: issueDescription,
             severity: severity,
@@ -207,11 +197,6 @@ function IssueDetailedComponent(props) {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="form-group col-2">
-                                    <label htmlFor="datePicker">Created On:</label>
-                                    <DatePicker id="datePicker" className="form-control" onChange={handleDate}/>
-                                    <label id="dateLabel"></label>
-                                </div>
 
                                 <div className="form-group col-6">
                                     <label htmlFor="points">Points</label>

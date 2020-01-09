@@ -7,6 +7,7 @@ function MainPageComponent() {
 
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
+    const [loading, setLoading] = useState(false)
 
 
 
@@ -24,6 +25,7 @@ function MainPageComponent() {
             userName: userName,
             password: password
         }
+        setLoading(true)
        fetch(`http://localhost:5000/login`, {
             method: 'POST',
             body: JSON.stringify(user),
@@ -36,9 +38,13 @@ function MainPageComponent() {
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("user", JSON.stringify(data.user));
                 localStorage.setItem("timeStamp", Date.now().toString());
-                history.push("/home");
+                setLoading(false)
+                history.push({
+                    pathname: '/home',
+                    state: { loading: loading }
+                })
             }).catch(err=>console.log(err));
-        history.push("/home");
+
     }
 
     return(

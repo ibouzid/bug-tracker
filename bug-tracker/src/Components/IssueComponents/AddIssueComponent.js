@@ -46,7 +46,8 @@ function AddIssueComponent(props) {
             projectId: projectId,
             points: points,
             attachment: attachment,
-            projectName: projectName
+            projectName: projectName,
+            lastUpdated: createDate
 
         };
         fetch(`http://localhost:5000/issues`, {
