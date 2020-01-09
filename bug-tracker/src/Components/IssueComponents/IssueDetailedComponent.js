@@ -28,8 +28,8 @@ function IssueDetailedComponent(props) {
         document.getElementById("issueTitle").value = issueData.title
         document.getElementById("severity").value = issueData.severity
         document.getElementById("ticketType").value = issueData.ticketType
-        document.getElementById("submittedBy").value = issueData.submittedBy
-        document.getElementById("assignedTo").value = issueData.userId
+        document.getElementById("submittedBy").innerHTML = issueData.submittedBy
+        document.getElementById("assignedTo").innerHTML = issueData.userId
         document.getElementById("points").value = issueData.points
         document.getElementById("status").value = issueData.status
         document.getElementById("dateLabel").innerHTML = issueData.createDate
@@ -46,6 +46,7 @@ function IssueDetailedComponent(props) {
         setProjectId(param.projectId)
 
     },[issueData.title])
+    console.log(issueData)
 
 
     function handleChange(event) {

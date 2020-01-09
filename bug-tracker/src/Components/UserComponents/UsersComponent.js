@@ -8,7 +8,7 @@ import UserCardComponent from "./UserCardComponent";
 function UsersComponent(){
     const [users, setUsers] = useState([])
     const jwt = GetValueFromLocalStorage("token")
-    TokenExpiration(30)
+    TokenExpiration()
 
     useEffect(()=>{
         fetch("http://localhost:5000/users",

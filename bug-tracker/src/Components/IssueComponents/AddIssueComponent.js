@@ -23,6 +23,7 @@ function AddIssueComponent(props) {
     const [projectName, setProjectName] = useState("")
     const jwt = GetValueFromLocalStorage("token")
 
+
     useEffect(()=>{
         setProjectId(props.location.state.projectId)
         fetch(`http://localhost:5000/projects/${projectId}`,
@@ -192,7 +193,7 @@ function AddIssueComponent(props) {
                   <div className="form-group col-2">
                       <label htmlFor="datePicker">Created On:</label>
                       <DatePicker id="datePicker" className="form-control" onChange={handleDate}/>
-                      <label id="dateLabel"></label>
+
                   </div>
 
                   <div className="form-group col-6">
@@ -202,7 +203,7 @@ function AddIssueComponent(props) {
                   <div className="form-group  col-4">
                       <label htmlFor="attachment">Attachment:</label>
                       <input type="file" id="attachment" onChange={handleChange}/>
-                  </div>
+                  </div> <label id="dateLabel" className="col"></label>
 
 
 

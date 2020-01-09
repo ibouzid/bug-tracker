@@ -10,7 +10,7 @@ function AllProjectsComponent() {
 
     const [projects, setProjects] = useState([])
     const jwt = GetValueFromLocalStorage("token")
-    TokenExpiration(30)
+    TokenExpiration()
 
     useEffect(()=>{
         fetch("http://localhost:5000/projects",

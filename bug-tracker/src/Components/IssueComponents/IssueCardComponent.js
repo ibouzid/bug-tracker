@@ -7,8 +7,8 @@ function IssueCardComponent(props){
             return(
 
 
-                    <div className="col-3" key={item.issueId} value={item.issueId} >
-                        <div className="card">
+                    <div className="col-4" key={item.issueId} value={item.issueId} >
+                        <div className="card issue-card">
                             <div className="card-body row">
                                 <Link className="card-body row" to={`/projects/${item.projectId}/issues/${item.issueId}`}>
                                 <h5 className="card-title col-12">{item.projectName}</h5>

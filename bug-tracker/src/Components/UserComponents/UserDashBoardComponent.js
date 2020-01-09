@@ -9,8 +9,7 @@ function UserDashboardComponent() {
     const [jwt, setJWT] = useState(token)
     const history = useHistory()
 
-    //token expires in "time" milliseconds
-    TokenExpiration(100000)
+    TokenExpiration()
 
     useEffect(()=>{
         setJWT(token)

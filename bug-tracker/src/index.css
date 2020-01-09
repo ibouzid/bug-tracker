@@ -98,3 +98,10 @@ code {
 .delete-project-background{
   background-color: red;
 }
+.card-description{
+  height: 100px;
+}
+.issue-card{
+  height:160px;
+  margin:5px;
+}

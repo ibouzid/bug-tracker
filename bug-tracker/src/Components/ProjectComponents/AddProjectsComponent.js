@@ -19,7 +19,6 @@ function AddProjectsComponent() {
 
 
     function handleSubmit(event) {
-        event.preventDefault()
         console.log(users)
         let project = {
             createDate: createDate,
@@ -138,10 +137,10 @@ function AddProjectsComponent() {
 
 
                     </div>
-                    <Link to={`/allProjects`}>
+                    <Link to={`/projects/all`}>
                         <button onClick={handleSubmit} type="submit" className="btn btn-primary col-1">Add Project</button>
                     </Link>
-                    <Link to={`/allProjects`}>
+                    <Link to={`/projects/all`}>
                         <button type="cancel" className="btn btn-light col-1">Cancel</button>
                     </Link>
                 </form>

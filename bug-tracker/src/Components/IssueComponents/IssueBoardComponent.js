@@ -10,6 +10,7 @@ function IssueBoardComponent(props) {
     const params = useParams()
     const jwt = GetValueFromLocalStorage("token")
 
+
     useEffect(()=>{
         fetch(`http://localhost:5000/projects/${params.projectId}/issues`,
                 {headers: {authorization: `Bearer ${jwt}`}})
@@ -17,6 +18,7 @@ function IssueBoardComponent(props) {
             .then(data => {setIssues(data.data)});
 
     },[])
+    console.log(issues)
 
 
         return(

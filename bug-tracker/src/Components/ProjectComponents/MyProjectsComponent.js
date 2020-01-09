@@ -10,7 +10,7 @@ function MyProjectsComponent() {
     const userId = JSON.parse(GetValueFromLocalStorage("user"))[0].userId
     const jwt = GetValueFromLocalStorage("token")
     const [projects, setProjects] = useState([])
-    TokenExpirationInMinutes(30)
+    TokenExpirationInMinutes()
 
 
     useEffect(()=>{
