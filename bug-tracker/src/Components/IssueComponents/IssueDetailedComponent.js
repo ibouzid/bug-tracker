@@ -3,6 +3,7 @@ import {Link, useParams} from "react-router-dom";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import UserOptionComponent from "../UserComponents/UserOptionComponent";
 import TokenExpirationInMinutes from "../Helpers/TokenExpirationInMinutes";
+import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 
 function IssueDetailedComponent(props) {
 
@@ -17,12 +18,20 @@ function IssueDetailedComponent(props) {
     const [points, setPoints] = useState("");
     //const [attachment, setAttachment] = useState("");
     const [issueData, setIssueData] = useState({});
+    const jwt = GetValueFromLocalStorage("token");
     const param = useParams();
     TokenExpirationInMinutes();
     console.log("hi")
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/projects/${param.projectId}/issues/${param.issueId}`)
+        fetch(`http://localhost:5000/projects/${param.projectId}/issues/${param.issueId}`,{
+            method: 'GET',
+                headers : {
+                authorization: `Bearer ${jwt}`,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+            }
+        })
             .then(response => {
                 if (response.status >= 200 && response.status <=299) {
                     return response.json();
@@ -115,6 +124,7 @@ function IssueDetailedComponent(props) {
             method: 'PUT',
             body: JSON.stringify(issue),
             headers : {
+                authorization: `Bearer ${jwt}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
@@ -176,7 +186,7 @@ function IssueDetailedComponent(props) {
                                         <select id="severity" className="form-control" onChange={handleChange}>
                                             <option>Select Severity</option>
                                             <option value="low">Low</option>
-                                            <option value="meduim">Medium</option>
+                                            <option value="medium">Medium</option>
                                             <option value="high">High</option>
                                         </select>
                                     </div>

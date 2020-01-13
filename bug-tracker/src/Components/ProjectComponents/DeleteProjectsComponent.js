@@ -1,9 +1,11 @@
 import React from "react"
 import {useParams, useHistory} from "react-router-dom"
+import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 
 function DeleteProjectsComponent(props) {
-    const params = useParams()
-    const history = useHistory()
+    const params = useParams();
+    const history = useHistory();
+    const jwt = GetValueFromLocalStorage("token");
 
     function handleClick() {
 
@@ -11,6 +13,7 @@ function DeleteProjectsComponent(props) {
             method: 'DELETE',
             body: JSON.stringify({projectId:params.projectId}),
             headers : {
+                authorization: `Bearer ${jwt}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
