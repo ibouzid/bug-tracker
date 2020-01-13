@@ -4,6 +4,7 @@ import ProjectCardComponent from "./ProjectCardComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import TokenExpirationInMinutes from "../Helpers/TokenExpirationInMinutes";
 import {Link, useHistory} from "react-router-dom";
+import PaginationComponent from "../Helpers/PaginationComponent";
 
 function MyProjectsComponent() {
 
@@ -12,6 +13,11 @@ function MyProjectsComponent() {
     const [jwt] = useState(token);
     const [projects, setProjects] = useState([]);
     const history = useHistory();
+    const [currentPageNumber, setCurrentPageNumber] = useState(1);
+    const [projectsPerPage] = useState(9);
+    const indexOfLastPage = currentPageNumber * projectsPerPage;
+    const indexOfFirstPage = indexOfLastPage - projectsPerPage;
+    const projectsOnCurrentPage = projects.slice(indexOfFirstPage, indexOfLastPage);
     TokenExpirationInMinutes();
 
     useEffect(()=>{
@@ -29,7 +35,11 @@ function MyProjectsComponent() {
                     history.push("/projects/user")
                 }
             }).catch(err=>console.log(err));
-    },[jwt, userIdString, history])
+    },[jwt, userIdString, history]);
+
+    function handlePageClick(number){
+        setCurrentPageNumber(number);
+    }
 
         return(
             <div>
@@ -42,7 +52,10 @@ function MyProjectsComponent() {
                 </div><br/>
 
                 <div className="board row">
-                    <ProjectCardComponent data={projects}/>
+                    <ProjectCardComponent data={projectsOnCurrentPage}/>
+                </div>
+                <div className="board p-3">
+                    <PaginationComponent  totalItems={projects.length} itemsPerPage ={projectsPerPage} handlePageClick={handlePageClick} />
                 </div>
             </div>
         )

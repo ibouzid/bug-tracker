@@ -21,7 +21,6 @@ function IssueDetailedComponent(props) {
     const jwt = GetValueFromLocalStorage("token");
     const param = useParams();
     TokenExpirationInMinutes();
-    console.log("hi")
 
     useEffect(()=>{
         fetch(`http://localhost:5000/projects/${param.projectId}/issues/${param.issueId}`,{

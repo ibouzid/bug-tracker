@@ -38,10 +38,7 @@ function IssueCardComponent(props){
                             </div>
                         </div>
                     </div>
-
-
             )
-
         });
 
         return(data);

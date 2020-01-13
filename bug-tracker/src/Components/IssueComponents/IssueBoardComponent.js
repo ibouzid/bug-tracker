@@ -58,13 +58,9 @@ function IssueBoardComponent() {
                         title="Complete"
                         issues={issues.filter(item=>item.status==="completed")}/>
                 </div>
-
-
             </div>
 
         )
-
-
 
 }
 
