@@ -1,14 +1,13 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect} from "react";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import {Link, useHistory} from "react-router-dom";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 import TokenExpiration from "../Helpers/TokenExpirationInMinutes";
 
 function UserDashboardComponent(props) {
-    const token = GetValueFromLocalStorage("token")
-    const [jwt] = useState(token)
-    const history = useHistory()
-    const [loading, setLoading] = useState(false)
+    const token = GetValueFromLocalStorage("token");
+    const [jwt] = useState(token);
+    const history = useHistory();
 
     TokenExpiration()
 
@@ -20,9 +19,9 @@ function UserDashboardComponent(props) {
     return(
         <div>
             <NavbarComponent/>
-            <div className="board jumbotron text-center">
+            <div className="board jumbotron dashboard-body text-center">
                 <div className="row">
-                    <div className="col-5">
+                    <div className="col-6">
                         <Link to="/">
                         <div className="card row dashboard-card">
                             <h3 className="card-title col-12">
@@ -32,7 +31,7 @@ function UserDashboardComponent(props) {
                         </div>
                         </Link>
                     </div>
-                    <div className="col-5">
+                    <div className="col-6">
                         <Link to="/">
                         <div className="card row dashboard-card">
                             <h3 className="card-title col-12">
@@ -44,7 +43,7 @@ function UserDashboardComponent(props) {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-5">
+                    <div className="col-6">
                         <Link to="/">
                         <div className="card row dashboard-card">
                             <h3 className="card-title col-12">
@@ -54,7 +53,7 @@ function UserDashboardComponent(props) {
                         </div>
                         </Link>
                     </div>
-                    <div className="col-5">
+                    <div className="col-6">
                         <Link to="/users">
                         <div className="card row dashboard-card">
                             <h3 className="card-title col-12">

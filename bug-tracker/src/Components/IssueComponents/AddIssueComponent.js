@@ -9,23 +9,22 @@ import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 
 function AddIssueComponent(props) {
 
-    const [createDate, setCreateDate] = useState("")
-    const [title, setTitle] = useState("")
-    const [issueDescription, setissueDescription] = useState("")
-    const [severity, setSeverity] = useState("")
-    const [ticketType, setTicketType] = useState("")
-    const [status, setStatus] = useState("")
-    const [submittedBy, setSubmittedBy] = useState("")
-    const [userId, setUserId] = useState("")
-    const [projectId] = useState(props.location.state.projectId)
-    const [points, setPoints] = useState("")
-    const [attachment, setAttachment] = useState("")
-    const [projectName, setProjectName] = useState("")
-    const jwt = GetValueFromLocalStorage("token")
+    const [createDate, setCreateDate] = useState("");
+    const [title, setTitle] = useState("");
+    const [issueDescription, setissueDescription] = useState("");
+    const [severity, setSeverity] = useState("");
+    const [ticketType, setTicketType] = useState("");
+    const [status, setStatus] = useState("");
+    const [submittedBy, setSubmittedBy] = useState("");
+    const [userId, setUserId] = useState("");
+    const [projectId] = useState(props.location.state.projectId);
+    const [points, setPoints] = useState("");
+    const [attachment, setAttachment] = useState("");
+    const [projectName, setProjectName] = useState("");
+    const jwt = GetValueFromLocalStorage("token");
 
 
     useEffect(()=>{
-        //setProjectId(props.location.state.projectId)
         fetch(`http://localhost:5000/projects/${projectId}`,
             {headers:{authorization: `Bearer ${jwt}`}})
             .then(response =>  response.json())
@@ -61,7 +60,7 @@ function AddIssueComponent(props) {
         }).then(response=>response.json())
             .then(data=>console.log(data))
             .catch(err=>console.log(err));
-        alert("Issue Successfully Added!")
+        alert("Issue Successfully Added!");
 
 
     }

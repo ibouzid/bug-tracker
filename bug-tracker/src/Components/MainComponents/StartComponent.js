@@ -1,6 +1,6 @@
 import React from "react";
 import {Switch,Route} from "react-router-dom";
-import MainPageComponent from "./MainPageComponent";
+import LoginComponent from "./LoginComponent";
 import AddIssueComponent from "../IssueComponents/AddIssueComponent";
 import IssueBoardComponent from "../IssueComponents/IssueBoardComponent";
 import AllProjectsComponent from "../ProjectComponents/AllProjectsComponent";
@@ -20,7 +20,7 @@ function StartComponent() {
         <div>
 
             <Switch>
-                <Route path="/" exact component={MainPageComponent}/>
+                <Route path="/" exact component={LoginComponent}/>
                 <Route path="/home" exact component={UserDashboardComponent}/>
                 <Route path="/logout" exact component={LogoutComponent}/>
                 <Route path="/users" exact component={UsersComponent}/>

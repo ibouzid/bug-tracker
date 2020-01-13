@@ -1,12 +1,13 @@
 import React, { useState} from "react";
 import {useHistory} from "react-router-dom";
 
-function MainPageComponent() {
+function LoginComponent() {
 
     const history = useHistory()
 
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
+    const [incorrectUserInput, setIncorrectUserInput] = useState(false)
 
     function handleChange(event) {
         if (event.target.id === "userName") {
@@ -46,9 +47,7 @@ function MainPageComponent() {
                         pathname: '/home'
                     });
                 } else{
-                    history.push({
-                        pathname: "/login/fail"
-                    });
+                    setIncorrectUserInput(true);
                 }
        }).catch(err=>console.log(err));
     }
@@ -58,7 +57,7 @@ function MainPageComponent() {
             <div className="jumbotron">
                 <h3 className="display-2 login-header">Issue Tracker</h3>
                 <form className="mainPageInput">
-                    <div className="row">
+                     <div className="row">
                         <div className="form-group col-6 login-item">
                             <label htmlFor="userLogin">Username:</label>
                             <input id="userName"
@@ -79,8 +78,9 @@ function MainPageComponent() {
                                    onChange={handleChange
                                    }/>
                         </div>
-                    </div>
-                        <button type="submit" onClick={handleSubmit}
+                    </div>{incorrectUserInput? <label className="alert-warning incorrect-password">Incorrect Username or Password</label> : <></>}
+
+                    <button type="submit" onClick={handleSubmit}
                                 className="btn btn-primary login-btn">Login</button>
 
 
@@ -97,4 +97,4 @@ function MainPageComponent() {
 
 }
 
-export default MainPageComponent
+export default LoginComponent

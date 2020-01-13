@@ -49,9 +49,7 @@ function IssueDetailedComponent(props) {
             });
 
 
-    },[issueData.title]);
-
-
+    },[issueData, param.projectId, param.issueId, issueData.title]);
 
 
     function handleChange(event) {

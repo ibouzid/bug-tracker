@@ -2,6 +2,7 @@ import React from "react";
 
 function PaginationComponent(props) {
 
+    //page buttons for pagination depending on how many
     let pages = [];
     for(let i = 1; i<= Math.ceil(props.totalIssues/props.issuesPerPage); i++){
         pages.push(i)

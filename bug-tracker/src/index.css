@@ -146,9 +146,15 @@ code {
   color:White;
 }
 .page-btn{
-  width: 50px;
   font-size: 25px;
+
 }
 .page-list{
   margin-left: 35%;
+}
+.dashboard-body{
+  width: 80%;
+}
+.incorrect-password{
+  margin-left: 30%;
 }
