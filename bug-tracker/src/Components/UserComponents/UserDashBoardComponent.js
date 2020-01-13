@@ -8,17 +8,15 @@ function UserDashboardComponent(props) {
     const token = GetValueFromLocalStorage("token")
     const [jwt] = useState(token)
     const history = useHistory()
+    const [loading, setLoading] = useState(false)
+
     TokenExpiration()
 
     useEffect(()=>{
         if(!jwt){
             history.push("/logout")
-        }if(props.location.state.loading){
-            return(
-                <div>loading</div>
-            )
         }
-    },[jwt])
+    },[jwt, history])
     return(
         <div>
             <NavbarComponent/>

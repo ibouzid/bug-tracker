@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 
 function ProjectCardComponent(props) {
@@ -6,7 +6,7 @@ function ProjectCardComponent(props) {
     if(props.data != null){
         let data = props.data.map(item=>{
             return(
-                <div key={item.projectId} className="col-3">
+                <div key={item.projectId} className="col-4">
                          <div value={item.projectId} >
                             <div className="card">
                                 <div className="card-body row">
@@ -28,15 +28,11 @@ function ProjectCardComponent(props) {
                                 </div>
                             </div>
                         </div>
-
                 </div>
-
-
             )
+        });
 
-        })
-
-        return(data)
+        return(data);
     }
     else{
         return(

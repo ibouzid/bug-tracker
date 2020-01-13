@@ -17,7 +17,7 @@ function AddIssueComponent(props) {
     const [status, setStatus] = useState("")
     const [submittedBy, setSubmittedBy] = useState("")
     const [userId, setUserId] = useState("")
-    const [projectId, setProjectId] = useState("")
+    const [projectId] = useState(props.location.state.projectId)
     const [points, setPoints] = useState("")
     const [attachment, setAttachment] = useState("")
     const [projectName, setProjectName] = useState("")
@@ -25,12 +25,12 @@ function AddIssueComponent(props) {
 
 
     useEffect(()=>{
-        setProjectId(props.location.state.projectId)
+        //setProjectId(props.location.state.projectId)
         fetch(`http://localhost:5000/projects/${projectId}`,
             {headers:{authorization: `Bearer ${jwt}`}})
             .then(response =>  response.json())
             .then(data => {setProjectName(data.data[0].projectName)});
-    },[])
+    },[jwt, projectId])
 
 
     function handleSubmit() {
@@ -212,7 +212,7 @@ function AddIssueComponent(props) {
               <Link to={`/projects/${projectId}/${projectName}`}>
               <button onClick={handleSubmit} type="submit" className="btn btn-primary col-1">Add</button>
               </Link>
-              <Link to={`/projects/${projectId}`}>
+              <Link to={`/projects/${projectId}/${projectName}`}>
                   <button type="cancel" className="btn btn-light col-1">Cancel</button>
               </Link>
           </form>

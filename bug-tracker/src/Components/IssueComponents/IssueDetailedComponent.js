@@ -2,50 +2,56 @@ import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import UserOptionComponent from "../UserComponents/UserOptionComponent";
-import DatePicker from "react-datepicker";
 import TokenExpirationInMinutes from "../Helpers/TokenExpirationInMinutes";
 
 function IssueDetailedComponent(props) {
 
-    const [projectId, setProjectId]  = useState("")
-    const [title, setTitle] = useState("")
-    const [issueDescription, setIssueDescription] = useState("")
-    const [severity, setSeverity] = useState("")
-    const [ticketType, setTicketType] = useState("")
-    const [status, setStatus] = useState("")
-    const [submittedBy, setSubmittedBy] = useState("")
-    const [userId, setUserId] = useState("")
-    const [points, setPoints] = useState("")
-    const [attachment, setAttachment] = useState("")
-    const [issueData, setIssueData] = useState({})
-    const param = useParams()
-    TokenExpirationInMinutes()
+    const [projectId, setProjectId]  = useState("");
+    const [title, setTitle] = useState("");
+    const [issueDescription, setIssueDescription] = useState("");
+    const [severity, setSeverity] = useState("");
+    const [ticketType, setTicketType] = useState("");
+    const [status, setStatus] = useState("");
+    const [submittedBy, setSubmittedBy] = useState("");
+    const [userId, setUserId] = useState("");
+    const [points, setPoints] = useState("");
+    const [attachment, setAttachment] = useState("");
+    const [issueData, setIssueData] = useState({});
+    const param = useParams();
+    TokenExpirationInMinutes();
 
     useEffect(()=>{
         fetch(`http://localhost:5000/projects/${param.projectId}/issues/${param.issueId}`)
             .then(response =>  response.json())
-            .then(data => {setIssueData(...data.data)});
-        document.getElementById("issueDescription").value = issueData.issueDescription
-        document.getElementById("issueTitle").value = issueData.title
-        document.getElementById("severity").value = issueData.severity
-        document.getElementById("ticketType").value = issueData.ticketType
-        document.getElementById("submittedBy").innerHTML = issueData.submittedBy
-        document.getElementById("assignedTo").innerHTML = issueData.userId
-        document.getElementById("points").value = issueData.points
-        document.getElementById("status").value = issueData.status
-        setSeverity(issueData.severity)
-        setTicketType(issueData.ticketType)
-        setAttachment(issueData.attachment)
-        setPoints(issueData.points)
-        setUserId(issueData.userId)
-        setTitle(issueData.title)
-        setIssueDescription(issueData.issueDescription)
-        setSubmittedBy(issueData.submittedBy)
-        setStatus(issueData.status)
-        setProjectId(param.projectId)
+            .then(data => {
+                setIssueData(...data.data)
+            })
+            .then(()=>{
+                console.log(issueData);
+                setSeverity(issueData.severity);
+                setTicketType(issueData.ticketType);
+                setAttachment(issueData.attachment);
+                setPoints(issueData.points);
+                setUserId(issueData.userId);
+                setTitle(issueData.title);
+                setIssueDescription(issueData.issueDescription);
+                setSubmittedBy(issueData.submittedBy);
+                setStatus(issueData.status);
+                setProjectId(param.projectId);
+                document.getElementById("issueDescription").value = issueData.issueDescription;
+                document.getElementById("issueTitle").value = issueData.title;
+                document.getElementById("severity").value = issueData.severity;
+                document.getElementById("ticketType").value = issueData.ticketType;
+                document.getElementById("submittedBy").value = issueData.submittedBy;
+                document.getElementById("assignedTo").value = issueData.userId;
+                document.getElementById("points").value = issueData.points;
+                document.getElementById("status").value = issueData.status;
+            });
 
-    },[issueData.title])
-    console.log(issueData)
+
+    },[issueData.title]);
+
+
 
 
     function handleChange(event) {
@@ -75,9 +81,9 @@ function IssueDetailedComponent(props) {
         }
         if(event.target.id === "attachment"){
             //setAttachment(event.target.value)
-            let files = event.target.files
-            let reader = new FileReader()
-            reader.readAsDataURL(files[0])
+            let files = event.target.files;
+            let reader = new FileReader();
+            reader.readAsDataURL(files[0]);
             reader.onload = (file) => {setAttachment(file.target.result)}
 
         }
@@ -107,7 +113,7 @@ function IssueDetailedComponent(props) {
         }).then(response=>response.json())
             .then(data=>console.log(data))
             .catch(err=>console.log(err));
-        alert("Issue Successfully Updated!")
+        alert("Issue Successfully Updated!");
 
 
     }
@@ -116,7 +122,7 @@ function IssueDetailedComponent(props) {
             <div>
                 <NavbarComponent/>
                 <div>
-                    <body className="container board">
+                    <div className="container board">
                     <div className="">
                         <div className="row">
                             <h2 className="col-xl-8 col-sm-7"> Edit Issue: </h2>
@@ -218,11 +224,10 @@ function IssueDetailedComponent(props) {
                             </Link>
                         </form>
                     </div>
-                    </body>
+                    </div>
                 </div>
             </div>
         )
-
 }
 
 export default IssueDetailedComponent

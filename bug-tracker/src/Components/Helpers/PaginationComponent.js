@@ -1,27 +1,22 @@
-import React,{useState} from "react"
+import React from "react";
 
 function PaginationComponent(props) {
-    let pages = []
 
+    let pages = [];
     for(let i = 1; i<= Math.ceil(props.totalIssues/props.issuesPerPage); i++){
         pages.push(i)
     }
 
-
     return(
         <nav>
-            <ul className="pagination">
-            {pages.map(pageNumber=> (
-                <li key={pageNumber} className="page-item">
-                    <a className="page-link" onClick={()=>props.handlePageClick(pageNumber)}>{pageNumber}</a>
-                </li>
-            ))}
-
-        </ul>
-
+            <ul className="pagination row m-2 pt-5 pb-5">
+                {pages.map(pageNumber=> (
+                    <li key={pageNumber} className="page-btn">
+                         <button className="page-link page-box" onClick={()=>props.handlePageClick(pageNumber)}>{pageNumber}</button>
+                    </li>
+                ))}
+            </ul>
         </nav>
-
     )
-
 }
 export default PaginationComponent

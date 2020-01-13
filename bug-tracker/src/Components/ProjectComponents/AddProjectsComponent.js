@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import '../../App.css';
 import UserOptionComponent from "../UserComponents/UserOptionComponent";
 import DatePicker from "react-datepicker";
@@ -6,7 +6,6 @@ import {Link} from "react-router-dom";
 
 import "react-datepicker/dist/react-datepicker.css";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
-import UserOptionLabelComponent from "../UserComponents/UserOptionLabelComponent";
 
 function AddProjectsComponent() {
 
@@ -14,12 +13,10 @@ function AddProjectsComponent() {
     const [projectName, setProjectName] = useState("")
     const [projectDescription, setProjectDescription] = useState("")
     const [projectManager, setProjectManager] = useState("")
-    const [users, setUsers] = useState([]);
     const jwt = GetValueFromLocalStorage("token")
 
 
-    function handleSubmit(event) {
-        console.log(users)
+    function handleSubmit() {
         let project = {
             createDate: createDate,
             projectName:projectName,
@@ -76,7 +73,7 @@ function AddProjectsComponent() {
     }
     return (
         <div>
-            <body className="container">
+            <div className="container">
             <h1>BUG TRACKER <small>by Izzeddine Bouzid</small></h1>
             <div className="jumbotron">
                 <div className="row">
@@ -145,7 +142,7 @@ function AddProjectsComponent() {
                     </Link>
                 </form>
             </div>
-            </body>
+            </div>
         </div>
     );
 }

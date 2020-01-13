@@ -1,22 +1,23 @@
-import React from "react"
+import React from "react";
 import {Link} from  "react-router-dom";
 
 function IssueCardComponent(props){
+
     if(props.data != null){
         let data = props.data.map(item=>{
-            let severityClass =""
+            let severityClass ="";
             switch(item.severity) {
                 case "low":
-                    severityClass = "badge-info"
+                    severityClass = "badge-info";
                     break;
                 case "medium":
-                    severityClass = "badge-warning"
+                    severityClass = "badge-warning";
                     break;
                 case "high":
-                    severityClass = "badge-danger"
+                    severityClass = "badge-danger";
                     break;
                 default:
-                    severityClass = ""
+                    severityClass = "";
             }
 
             return(
@@ -41,9 +42,9 @@ function IssueCardComponent(props){
 
             )
 
-        })
+        });
 
-        return(data)
+        return(data);
     }
     else{
         return(

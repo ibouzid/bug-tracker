@@ -11,7 +11,7 @@ function UserOptionComponent(){
             {headers:{authorization: `Bearer ${jwt}`}})
             .then(response =>  response.json())
             .then(data => {setUsers(data.data)});
-    },[])
+    },[jwt])
 
     let data = users.map(item=>{
         return(

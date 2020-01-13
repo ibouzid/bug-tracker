@@ -4,10 +4,13 @@ import { useHistory} from "react-router-dom";
 
 export default function TokenExpirationInMinutes() {
 
-    const history = useHistory()
-    //first number is the number of minutes it will allow a user to stay logged in before expiring
-    if(Date.now() - GetValueFromLocalStorage("timeStamp") > 50*60000){
-        localStorage.clear()
-        history.push("logout")
+    const history = useHistory();
+
+    //Time in minutes before auth token is removed from local storage
+    const sessionTime = 30;
+
+    if(Date.now() - GetValueFromLocalStorage("timeStamp") > sessionTime*60000){
+        localStorage.clear();
+        history.push("/logout");
     }
 }

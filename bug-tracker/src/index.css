@@ -84,7 +84,8 @@ code {
 }
 .dashboard-card{
   margin:50px;
-  border: 5px dashed blue;
+  padding-top:25px;
+  border: 2px solid grey;
 }
 .add-issue{
   margin-left: 75%;
@@ -108,4 +109,46 @@ code {
 .issue-icon{
   margin-right: 10px;
   font-size: 15px;
+}
+.nav-btn{
+  width: 100px;
+}
+#Menu
+{
+  padding:0;
+  margin:0;
+  list-style-type:none;
+  font-size:13px;
+  color:#717171;
+  width:100%;
+}
+
+#Menu li
+{
+  border-bottom:1px solid #eeeeee;
+  padding:7px 10px 7px 10px;
+}
+
+#Menu li:hover
+{
+  color:White;
+  background-color:darkgrey;
+}
+
+#Menu a:link
+{
+  color:#717171;
+  text-decoration:none;
+}
+
+#Menu a:hover
+{
+  color:White;
+}
+.page-btn{
+  width: 50px;
+  font-size: 25px;
+}
+.page-list{
+  margin-left: 35%;
 }

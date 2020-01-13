@@ -10,6 +10,7 @@ import MyProjectsComponent from "../ProjectComponents/MyProjectsComponent";
 import UsersComponent from "../UserComponents/UsersComponent";
 import AddProjectsComponent from "../ProjectComponents/AddProjectsComponent";
 import DeleteProjectsComponent from "../ProjectComponents/DeleteProjectsComponent";
+import LogoutComponent from "./LogoutComponent";
 
 function StartComponent() {
 
@@ -21,6 +22,7 @@ function StartComponent() {
             <Switch>
                 <Route path="/" exact component={MainPageComponent}/>
                 <Route path="/home" exact component={UserDashboardComponent}/>
+                <Route path="/logout" exact component={LogoutComponent}/>
                 <Route path="/users" exact component={UsersComponent}/>
                 <Route path="/issues/add" exact component={AddIssueComponent}/>
                 <Route path="/projects/add" exact component={AddProjectsComponent}/>
@@ -28,11 +30,7 @@ function StartComponent() {
                 <Route path="/projects/user" exact component={MyProjectsComponent}/>
                 <Route path="/projects/:projectId/delete" exact component={DeleteProjectsComponent}/>
                 <Route path="/projects/:projectId/issues/:issueId" exact component={IssueDetailedComponent}/>
-                <Route path="/projects/:projectId/:projectName" exact render={()=>{
-                    return(
-                        <IssueBoardComponent/>
-                    )
-                }}/>
+                <Route path="/projects/:projectId/:projectName" exact component={IssueBoardComponent}/>
             </Switch>
         </div>
     )

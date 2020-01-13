@@ -1,15 +1,12 @@
-import React, { useState} from "react"
-import {useHistory} from "react-router-dom"
+import React, { useState} from "react";
+import {useHistory} from "react-router-dom";
 
 function MainPageComponent() {
 
     const history = useHistory()
 
-    const [userName, setUserName] = useState("")
-    const [password, setPassword] = useState("")
-    const [loading, setLoading] = useState(false)
-
-
+    const [userName, setUserName] = useState("");
+    const [password, setPassword] = useState("");
 
     function handleChange(event) {
         if (event.target.id === "userName") {
@@ -20,12 +17,13 @@ function MainPageComponent() {
         }
 
     }
-    function handleClick() {
+
+    function handleSubmit(event) {
+        event.preventDefault()
         const user = {
             userName: userName,
             password: password
         }
-        setLoading(true)
        fetch(`http://localhost:5000/login`, {
             method: 'POST',
             body: JSON.stringify(user),
@@ -33,18 +31,26 @@ function MainPageComponent() {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
-        }).then(response=>response.json())
-            .then(data=>{
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("user", JSON.stringify(data.user));
-                localStorage.setItem("timeStamp", Date.now().toString());
-                setLoading(false)
-                history.push({
-                    pathname: '/home',
-                    state: { loading: loading }
-                })
-            }).catch(err=>console.log(err));
-
+       }).then(response => {
+            if (response.status >= 200 && response.status <=299) {
+                return response.json();
+            } else {
+                return null;
+            }
+       }).then(data=>{
+                if(data){
+                    localStorage.setItem("token", data.token);
+                    localStorage.setItem("user", JSON.stringify(data.user));
+                    localStorage.setItem("timeStamp", Date.now().toString());
+                    history.push({
+                        pathname: '/home'
+                    });
+                } else{
+                    history.push({
+                        pathname: "/login/fail"
+                    });
+                }
+       }).catch(err=>console.log(err));
     }
 
     return(
@@ -74,20 +80,18 @@ function MainPageComponent() {
                                    }/>
                         </div>
                     </div>
-                        <button type="button" onClick={handleClick}
+                        <button type="submit" onClick={handleSubmit}
                                 className="btn btn-primary login-btn">Login</button>
 
 
                 </form>
                 <div className="row login-item">
-                    <p className="login-link">Forgot your <a href="#">Password?</a> </p>
+                    <p className="login-link">Forgot your <a href="/password">Password?</a> </p>
                 </div>
                 <div className="row login-item">
-                    <p className="login-link">Create an Account: <a href="#">Sign Up</a> </p>
+                    <p className="login-link">Create an Account: <a href="/register">Sign Up</a> </p>
                 </div>
             </div>
-
-
         </div>
     )
 

@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom"
-import IssueBoardColumnComponent from "./IssueBoardColumnComponent";
+import {Link, useParams} from "react-router-dom";
+import IssuesByStatusComponent from "./IssuesByStatusComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 
-function IssueBoardComponent(props) {
+function IssueBoardComponent() {
 
-    const [issues, setIssues] = useState([])
-    const params = useParams()
-    const jwt = GetValueFromLocalStorage("token")
+    const [issues, setIssues] = useState([]);
+    const params = useParams();
+    const jwt = GetValueFromLocalStorage("token");
 
 
     useEffect(()=>{
@@ -17,37 +17,42 @@ function IssueBoardComponent(props) {
             .then(response =>  response.json())
             .then(data => {setIssues(data.data)});
 
-    },[])
+    },[params.projectId, jwt]);
 
         return(
             <div>
                 <NavbarComponent/>
-                <h1 className="board">Project: {params.projectName} </h1>
-                    <div className="board">
-                        <Link to={{pathname:"/issues/add", state: {projectId: params.projectId}}}>
-                            <button className="board btn-primary add-issue"> Add Issue</button>
-                        </Link>
 
-
-                            <IssueBoardColumnComponent
-                                title="Open"
-                                issues={issues.filter(item=>item.status==="open")}/>
-
-                            <IssueBoardColumnComponent
-                                title="In Progress"
-                                issues={issues.filter(item=>item.status==="inProgress")}/>
-
-                            <IssueBoardColumnComponent
-                                title="Under Review"
-                                issues={issues.filter(item=>item.status ==="underReview")}/>
-
-                            <IssueBoardColumnComponent
-                                title="Complete"
-                                issues={issues.filter(item=>item.status==="completed")}/>
-
+                    <div className="row pb-5">
+                        <h1 className="board col-4">Project: {params.projectName} </h1>
+                        <div className="board col-3">
+                            <Link to={{pathname:"/issues/add", state: {projectId: params.projectId}}}>
+                                <button className="board btn-primary add-issue"> Add Issue</button>
+                            </Link>
+                        </div>
                     </div>
+                <div className="board">
+
+                <IssuesByStatusComponent
+                        title="Open"
+                        issues={issues.filter(item=>item.status==="open")}/>
+
+                    <IssuesByStatusComponent
+                        title="In Progress"
+                        issues={issues.filter(item=>item.status==="inProgress")}/>
+
+                    <IssuesByStatusComponent
+                        title="Under Review"
+                        issues={issues.filter(item=>item.status ==="underReview")}/>
+
+                    <IssuesByStatusComponent
+                        title="Complete"
+                        issues={issues.filter(item=>item.status==="completed")}/>
+                </div>
+
 
             </div>
+
         )
 
 

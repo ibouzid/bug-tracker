@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react"
 import NavbarComponent from "../MainComponents/NavbarComponent";
-import ProjectCardComponent from "../ProjectComponents/ProjectCardComponent";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 import TokenExpiration from "../Helpers/TokenExpirationInMinutes";
 import UserCardComponent from "./UserCardComponent";
@@ -15,7 +14,7 @@ function UsersComponent(){
             {headers:{authorization: `Bearer ${jwt}`}})
             .then(response =>  response.json())
             .then(data => {setUsers(data.data)});
-    },[])
+    },[jwt])
 
     return(
         <div>
