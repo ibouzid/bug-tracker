@@ -25,8 +25,16 @@ function AllProjectsComponent() {
     useEffect(()=>{
         fetch("http://localhost:5000/projects",
             {headers:{authorization: `Bearer ${jwt}`}})
-            .then(response =>  response.json())
-            .then(data => {setProjects(data.data)});
+            .then(response => {
+                if (response.status >= 200 && response.status <=299) {
+                    return response.json();
+                } else {
+                    return null;
+                }
+            }).then(data => {
+                if(data){
+                    setProjects(data.data)
+                }}).catch(err=>console.log(err));;
     },[jwt])
 
 
@@ -45,7 +53,7 @@ function AllProjectsComponent() {
                 <ProjectCardComponent data={projectsOnCurrentPage}/>
             </div>
             <div className="board">
-                <PaginationComponent  totalIssues={projects.length} issuesPerPage ={projectsPerPage} handlePageClick={handlePageClick} />
+                <PaginationComponent  totalItems={projects.length} itemsPerPage ={projectsPerPage} handlePageClick={handlePageClick} />
             </div>
         </div>
 

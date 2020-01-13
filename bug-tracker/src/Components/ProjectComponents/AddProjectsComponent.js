@@ -31,8 +31,13 @@ function AddProjectsComponent() {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
-        }).then(response=>response.json())
-            .then(data=>console.log(data))
+        }).then(response => {
+            if (response.status >= 200 && response.status <=299) {
+                return response.json();
+            } else {
+                return null;
+            }
+        }).then(data=>console.log(data))
             .catch(err=>console.log(err));
         alert("Project Successfully Added!")
 

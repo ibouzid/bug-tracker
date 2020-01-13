@@ -14,8 +14,17 @@ function IssueBoardComponent() {
     useEffect(()=>{
         fetch(`http://localhost:5000/projects/${params.projectId}/issues`,
                 {headers: {authorization: `Bearer ${jwt}`}})
-            .then(response =>  response.json())
-            .then(data => {setIssues(data.data)});
+            .then(response => {
+                if (response.status >= 200 && response.status <=299) {
+                    return response.json();
+                } else {
+                    return null;
+                }
+            }).then(data => {
+                if(data){
+                    setIssues(data.data)
+                }
+            }).catch(err=>console.log(err));
 
     },[params.projectId, jwt]);
 

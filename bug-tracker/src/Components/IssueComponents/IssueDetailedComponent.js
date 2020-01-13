@@ -15,41 +15,52 @@ function IssueDetailedComponent(props) {
     const [submittedBy, setSubmittedBy] = useState("");
     const [userId, setUserId] = useState("");
     const [points, setPoints] = useState("");
-    const [attachment, setAttachment] = useState("");
+    //const [attachment, setAttachment] = useState("");
     const [issueData, setIssueData] = useState({});
     const param = useParams();
     TokenExpirationInMinutes();
+    console.log("hi")
 
     useEffect(()=>{
         fetch(`http://localhost:5000/projects/${param.projectId}/issues/${param.issueId}`)
-            .then(response =>  response.json())
-            .then(data => {
-                setIssueData(...data.data)
+            .then(response => {
+                if (response.status >= 200 && response.status <=299) {
+                    return response.json();
+                } else {
+                    return null;
+                }
+            }).then(data => {
+                if(data){
+                    setIssueData(...data.data);
+                }else{
+                   console.log("No Data Retrieved")
+                }
             })
             .then(()=>{
-                console.log(issueData);
-                setSeverity(issueData.severity);
-                setTicketType(issueData.ticketType);
-                setAttachment(issueData.attachment);
-                setPoints(issueData.points);
-                setUserId(issueData.userId);
-                setTitle(issueData.title);
-                setIssueDescription(issueData.issueDescription);
-                setSubmittedBy(issueData.submittedBy);
-                setStatus(issueData.status);
-                setProjectId(param.projectId);
-                document.getElementById("issueDescription").value = issueData.issueDescription;
-                document.getElementById("issueTitle").value = issueData.title;
-                document.getElementById("severity").value = issueData.severity;
-                document.getElementById("ticketType").value = issueData.ticketType;
-                document.getElementById("submittedBy").value = issueData.submittedBy;
-                document.getElementById("assignedTo").value = issueData.userId;
-                document.getElementById("points").value = issueData.points;
-                document.getElementById("status").value = issueData.status;
+                    setSeverity(issueData.severity);
+                    setTicketType(issueData.ticketType);
+                    //setAttachment(issueData.attachment);
+                    setPoints(issueData.points);
+                    setUserId(issueData.userId);
+                    setTitle(issueData.title);
+                    setIssueDescription(issueData.issueDescription);
+                    setSubmittedBy(issueData.submittedBy);
+                    setStatus(issueData.status);
+                    setProjectId(param.projectId);
+                    document.getElementById("issueDescription").value = issueData.issueDescription;
+                    document.getElementById("issueTitle").value = issueData.title;
+                    document.getElementById("severity").value = issueData.severity;
+                    document.getElementById("ticketType").value = issueData.ticketType;
+                    document.getElementById("submittedBy").value = issueData.submittedBy;
+                    document.getElementById("assignedTo").value = issueData.userId;
+                    document.getElementById("points").value = issueData.points;
+                    document.getElementById("status").value = issueData.status;
+
             });
 
 
-    },[issueData, param.projectId, param.issueId, issueData.title]);
+    },[param.projectId, param.issueId, issueData.title, issueData.issueDescription, issueData.ticketType, issueData.points,
+             issueData.submittedBy,issueData.userId, issueData.status, issueData.severity]);
 
 
     function handleChange(event) {
@@ -82,11 +93,11 @@ function IssueDetailedComponent(props) {
             let files = event.target.files;
             let reader = new FileReader();
             reader.readAsDataURL(files[0]);
-            reader.onload = (file) => {setAttachment(file.target.result)}
+            //reader.onload = (file) => {setAttachment(file.target.result)}
 
         }
     }
-    function handleSubmit(event) {
+    function handleSubmit() {
         let issue = {
             title:title,
             issueDescription: issueDescription,
@@ -96,7 +107,6 @@ function IssueDetailedComponent(props) {
             submittedBy: submittedBy,
             userId: userId,
             points: points,
-            attachment: attachment,
             projectId: projectId,
             lastUpdated: Date().toString()
 
@@ -108,8 +118,13 @@ function IssueDetailedComponent(props) {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
-        }).then(response=>response.json())
-            .then(data=>console.log(data))
+        }).then(response => {
+            if (response.status >= 200 && response.status <=299) {
+                return response.json();
+            } else {
+                return null;
+            }
+        }).then(data=>console.log(data))
             .catch(err=>console.log(err));
         alert("Issue Successfully Updated!");
 

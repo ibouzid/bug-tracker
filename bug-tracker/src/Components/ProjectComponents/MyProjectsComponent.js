@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useState} from "react";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 import ProjectCardComponent from "./ProjectCardComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
@@ -7,20 +7,27 @@ import {Link, useHistory} from "react-router-dom";
 
 function MyProjectsComponent() {
 
-    const userIdString = GetValueFromLocalStorage("user")
-    const token = GetValueFromLocalStorage("token")
-    const [jwt] = useState(token)
-    const [projects, setProjects] = useState([])
-    const history = useHistory()
-    TokenExpirationInMinutes()
+    const userIdString = GetValueFromLocalStorage("user");
+    const token = GetValueFromLocalStorage("token");
+    const [jwt] = useState(token);
+    const [projects, setProjects] = useState([]);
+    const history = useHistory();
+    TokenExpirationInMinutes();
 
     useEffect(()=>{
 
         fetch(`http://localhost:5000/users/${JSON.parse(userIdString)[0].userId}/projects`,{headers:{authorization: `Bearer ${jwt}`}})
-            .then(response =>  response.json())
-            .then(data => {
-                setProjects(data.data)
-                history.push("/projects/user")
+            .then(response => {
+                if (response.status >= 200 && response.status <=299) {
+                    return response.json();
+                } else {
+                    return null;
+                }
+            }).then(data => {
+                if(data){
+                    setProjects(data.data)
+                    history.push("/projects/user")
+                }
             }).catch(err=>console.log(err));
     },[jwt, userIdString, history])
 

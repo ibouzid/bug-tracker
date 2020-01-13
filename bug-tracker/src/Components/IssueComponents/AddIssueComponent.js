@@ -27,8 +27,18 @@ function AddIssueComponent(props) {
     useEffect(()=>{
         fetch(`http://localhost:5000/projects/${projectId}`,
             {headers:{authorization: `Bearer ${jwt}`}})
-            .then(response =>  response.json())
-            .then(data => {setProjectName(data.data[0].projectName)});
+            .then(response => {
+                if (response.status >= 200 && response.status <=299) {
+                    return response.json();
+                } else {
+                    return null;
+                }
+            })
+            .then(data =>{
+                if(data){
+                    setProjectName(data.data[0].projectName)
+                }
+            }).catch(err=>console.log(err));
     },[jwt, projectId])
 
 
@@ -57,8 +67,13 @@ function AddIssueComponent(props) {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
-        }).then(response=>response.json())
-            .then(data=>console.log(data))
+        }).then(response => {
+            if (response.status >= 200 && response.status <=299) {
+                return response.json();
+            } else {
+                return null;
+            }
+        }).then(data=>console.log(data))
             .catch(err=>console.log(err));
         alert("Issue Successfully Added!");
 
@@ -108,7 +123,7 @@ function AddIssueComponent(props) {
     }
 
   return (
-      <body className="container">
+      <div className="container">
           <h1>BUG TRACKER <small>by Izzeddine Bouzid</small></h1>
       <div className="jumbotron">
           <div className="row">
@@ -216,7 +231,7 @@ function AddIssueComponent(props) {
               </Link>
           </form>
       </div>
-      </body>
+      </div>
   );
 }
 

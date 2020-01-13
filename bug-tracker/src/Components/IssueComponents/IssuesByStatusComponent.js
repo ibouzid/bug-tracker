@@ -25,7 +25,7 @@ if(props.issues!==0){
                 <IssueCardComponent data={issuesOnCurrentPage}/>
             </div>
             <div className="ml-2">
-                <PaginationComponent  totalIssues={props.issues.length} issuesPerPage ={issuesPerPage} handlePageClick={handlePageClick} />
+                <PaginationComponent  totalItems={props.issues.length} itemsPerPage ={issuesPerPage} handlePageClick={handlePageClick} />
             </div>
         </div>
 

@@ -12,8 +12,16 @@ function UsersComponent(){
     useEffect(()=>{
         fetch("http://localhost:5000/users",
             {headers:{authorization: `Bearer ${jwt}`}})
-            .then(response =>  response.json())
-            .then(data => {setUsers(data.data)});
+            .then(response => {
+                if (response.status >= 200 && response.status <=299) {
+                    return response.json();
+                } else {
+                    return null;
+                }
+            }).then(data => {
+                if(data){
+                    setUsers(data.data);
+                }}).catch(err=>console.log(err));
     },[jwt])
 
     return(
