@@ -70,6 +70,10 @@ function IssueDetailedComponent(props) {
     },[param.projectId, param.issueId, issueData.title, issueData.issueDescription, issueData.ticketType, issueData.points,
              issueData.submittedBy,issueData.userId, issueData.status, issueData.severity]);
 
+    const handleStuff = (event, setFunc) =>{
+
+    }
+
 
     function handleChange(event) {
         if (event.target.id === "issueTitle") {

@@ -3,6 +3,7 @@ import {Link, useParams} from "react-router-dom";
 import IssuesByStatusComponent from "./IssuesByStatusComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
+import handleSelect from "../EventHandlers/HandleSelect";
 
 function IssueBoardComponent() {
 
@@ -10,22 +11,12 @@ function IssueBoardComponent() {
     const [inProgressIssues, setInProgressIssues] = useState([]);
     const [underReviewIssues, setUnderReviewIssues] = useState([]);
     const [completedIssues, setCompletedIssues] = useState([]);
-    const [selectedStatus, setCurrentStatus] = useState("open");
+    const [selectedStatus, setCurrentStatus] = useState("inProgress");
     const [selectedIssues, setSelectedIssues] = useState([])
     const params = useParams();
     const jwt = GetValueFromLocalStorage("token");
 
-    function handleSelect(event, setFunction){
 
-        const options = event.target.options
-
-        Array.prototype.forEach.call(options, (option)=>{
-            if(option.selected){
-                setFunction(option.value)
-            }
-        });
-
-    }
     useEffect(()=>{
         switch(selectedStatus) {
             case "open":
@@ -60,7 +51,7 @@ function IssueBoardComponent() {
                     setInProgressIssues(data.data.filter(item=>item.status==="inProgress"))
                     setUnderReviewIssues(data.data.filter(item=>item.status==="underReview"))
                     setCompletedIssues(data.data.filter(item=>item.status==="completed"))
-                    setSelectedIssues(data.data.filter(item=>item.status==="open"))
+                    setSelectedIssues(data.data.filter(item=>item.status==="inProgress"))
                 }
             }).catch(err=>console.log(err));
 
@@ -75,7 +66,7 @@ function IssueBoardComponent() {
 
                             <select className="col-2 select-css" id="selectStatus" onChange={event => {handleSelect(event, setCurrentStatus)}}>
                                 <option id="open" value="open">Open Issues</option>
-                                <option id="inProgress" value="inProgress">In Progress Issues</option>
+                                <option id="inProgress" selected={true} value="inProgress">In Progress Issues</option>
                                 <option id="underReview" value="underReview">Under Review Issues</option>
                                 <option id="completed" value="completed">Completed Issues</option>
                             </select>
