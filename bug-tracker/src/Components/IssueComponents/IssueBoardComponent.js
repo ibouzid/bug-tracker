@@ -6,10 +6,44 @@ import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 
 function IssueBoardComponent() {
 
-    const [issues, setIssues] = useState([]);
+    const [openIssues, setOpenIssues] = useState([]);
+    const [inProgressIssues, setInProgressIssues] = useState([]);
+    const [underReviewIssues, setUnderReviewIssues] = useState([]);
+    const [completedIssues, setCompletedIssues] = useState([]);
+    const [selectedStatus, setCurrentStatus] = useState("open");
+    const [selectedIssues, setSelectedIssues] = useState([])
     const params = useParams();
     const jwt = GetValueFromLocalStorage("token");
 
+    function handleSelect(event, setFunction){
+
+        const options = event.target.options
+
+        Array.prototype.forEach.call(options, (option)=>{
+            if(option.selected){
+                setFunction(option.value)
+            }
+        });
+
+    }
+    useEffect(()=>{
+        switch(selectedStatus) {
+            case "open":
+                setSelectedIssues(openIssues);
+                break;
+            case "inProgress":
+                setSelectedIssues(inProgressIssues);
+                break;
+            case "underReview":
+                setSelectedIssues(underReviewIssues);
+                break;
+            case "completed":
+                setSelectedIssues(completedIssues);
+                break;
+            default:
+                break;
+        }
+    },[selectedStatus]);
 
     useEffect(()=>{
         fetch(`http://localhost:5000/projects/${params.projectId}/issues`,
@@ -22,7 +56,11 @@ function IssueBoardComponent() {
                 }
             }).then(data => {
                 if(data){
-                    setIssues(data.data)
+                    setOpenIssues(data.data.filter(item=>item.status==="open"))
+                    setInProgressIssues(data.data.filter(item=>item.status==="inProgress"))
+                    setUnderReviewIssues(data.data.filter(item=>item.status==="underReview"))
+                    setCompletedIssues(data.data.filter(item=>item.status==="completed"))
+                    setSelectedIssues(data.data.filter(item=>item.status==="open"))
                 }
             }).catch(err=>console.log(err));
 
@@ -32,31 +70,27 @@ function IssueBoardComponent() {
             <div>
                 <NavbarComponent/>
 
-                    <div className="row pb-5">
-                        <h1 className="board col-4">Project: {params.projectName} </h1>
-                        <div className="board col-3">
-                            <Link to={{pathname:"/issues/add", state: {projectId: params.projectId}}}>
-                                <button className="board btn-primary add-issue"> Add Issue</button>
-                            </Link>
-                        </div>
+                    <div className="board row pb-5 mb-5">
+                        <h1 className="col-3">Project: {params.projectName} </h1>
+
+                            <select className="col-2 select-css" id="selectStatus" onChange={event => {handleSelect(event, setCurrentStatus)}}>
+                                <option id="open" value="open">Open Issues</option>
+                                <option id="inProgress" value="inProgress">In Progress Issues</option>
+                                <option id="underReview" value="underReview">Under Review Issues</option>
+                                <option id="completed" value="completed">Completed Issues</option>
+                            </select>
+                            <div>
+                                <Link to={{pathname:"/issues/add", state: {projectId: params.projectId}}}>
+                                    <button className="board btn-primary btn-lg add-issue"> Add Issue</button>
+                                </Link>
+                            </div>
                     </div>
                 <div className="board">
 
                 <IssuesByStatusComponent
-                        title="Open"
-                        issues={issues.filter(item=>item.status==="open")}/>
+                        title={selectedStatus.toUpperCase()}
+                        issues={selectedIssues}/>
 
-                    <IssuesByStatusComponent
-                        title="In Progress"
-                        issues={issues.filter(item=>item.status==="inProgress")}/>
-
-                    <IssuesByStatusComponent
-                        title="Under Review"
-                        issues={issues.filter(item=>item.status ==="underReview")}/>
-
-                    <IssuesByStatusComponent
-                        title="Complete"
-                        issues={issues.filter(item=>item.status==="completed")}/>
                 </div>
             </div>
 
