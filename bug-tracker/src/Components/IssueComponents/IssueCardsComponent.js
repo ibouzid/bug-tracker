@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from  "react-router-dom";
 
-function IssueCardComponent(props){
+function IssueCardsComponent(props){
 
     if(props.data != null){
         let data = props.data.map(item=>{
@@ -50,4 +50,4 @@ function IssueCardComponent(props){
     }
 }
 
-export default IssueCardComponent
+export default IssueCardsComponent

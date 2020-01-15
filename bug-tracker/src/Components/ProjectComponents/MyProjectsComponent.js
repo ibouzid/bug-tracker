@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 import ProjectCardComponent from "./ProjectCardComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
-import TokenExpirationInMinutes from "../Helpers/TokenExpirationInMinutes";
 import {Link, useHistory} from "react-router-dom";
 import PaginationComponent from "../Helpers/PaginationComponent";
 
@@ -18,7 +17,6 @@ function MyProjectsComponent() {
     const indexOfLastPage = currentPageNumber * projectsPerPage;
     const indexOfFirstPage = indexOfLastPage - projectsPerPage;
     const projectsOnCurrentPage = projects.slice(indexOfFirstPage, indexOfLastPage);
-    TokenExpirationInMinutes();
 
     useEffect(()=>{
 
@@ -27,6 +25,8 @@ function MyProjectsComponent() {
                 if (response.status >= 200 && response.status <=299) {
                     return response.json();
                 } else {
+                    localStorage.clear();
+                    history.push("/logout");
                     return null;
                 }
             }).then(data => {

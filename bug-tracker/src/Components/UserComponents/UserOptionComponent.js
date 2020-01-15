@@ -1,17 +1,30 @@
 import React, {useEffect, useState} from "react";
+import {useHistory} from "react-router-dom";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 
 function UserOptionComponent(){
 
     const [users, setUsers]  = useState([]);
-    const jwt = GetValueFromLocalStorage("token")
+    const jwt = GetValueFromLocalStorage("token");
+    const history = useHistory();
 
     useEffect(()=>{
         fetch("http://localhost:5000/users",
             {headers:{authorization: `Bearer ${jwt}`}})
-            .then(response =>  response.json())
-            .then(data => {setUsers(data.data)});
-    },[jwt])
+            .then(response => {
+                if (response.status >= 200 && response.status <=299) {
+                    return response.json();
+                } else {
+                    localStorage.clear();
+                    history.push("/logout");
+                    return null;
+                }
+            })
+            .then(data => {
+                if(data){
+                setUsers(data.data)
+            }});
+    },[jwt, history]);
 
     let data = users.map(item=>{
         return(
@@ -19,9 +32,9 @@ function UserOptionComponent(){
                 {item.firstName} {item.lastName}
             </option>)
 
-    })
+    });
 
-    return(data)
+    return(data);
 }
 
 export default UserOptionComponent

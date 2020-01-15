@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import ProjectCardComponent from "./ProjectCardComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
-import TokenExpirationInMinutes from "../Helpers/TokenExpirationInMinutes";
 import PaginationComponent from "../Helpers/PaginationComponent";
 
 
@@ -15,12 +14,12 @@ function AllProjectsComponent() {
     const indexOfLastPage = currentPageNumber * projectsPerPage;
     const indexOfFirstPage = indexOfLastPage - projectsPerPage;
     const projectsOnCurrentPage = projects.slice(indexOfFirstPage, indexOfLastPage);
+    const history = useHistory();
 
     function handlePageClick(number){
         setCurrentPageNumber(number);
     }
     const jwt = GetValueFromLocalStorage("token");
-    TokenExpirationInMinutes();
 
     useEffect(()=>{
         fetch("http://localhost:5000/projects",
@@ -29,13 +28,15 @@ function AllProjectsComponent() {
                 if (response.status >= 200 && response.status <=299) {
                     return response.json();
                 } else {
+                    localStorage.clear();
+                    history.push("/logout");
                     return null;
                 }
             }).then(data => {
                 if(data){
                     setProjects(data.data)
                 }}).catch(err=>console.log(err));;
-    },[jwt])
+    },[jwt, history])
 
 
     return(

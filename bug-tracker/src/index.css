@@ -199,3 +199,11 @@ code {
 .select-css option {
   font-weight:normal;
 }
+.logout-img{
+  font-size: 150px;
+}
+.logout{
+  background-color: lightgray;
+  width: 100%;
+  height: 100vh;
+}

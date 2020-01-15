@@ -11,6 +11,7 @@ import UsersComponent from "../UserComponents/UsersComponent";
 import AddProjectsComponent from "../ProjectComponents/AddProjectsComponent";
 import DeleteProjectsComponent from "../ProjectComponents/DeleteProjectsComponent";
 import LogoutComponent from "./LogoutComponent";
+import AllIssuesComponent from "../IssueComponents/AllIssuesComponent";
 
 function StartComponent() {
 
@@ -24,6 +25,7 @@ function StartComponent() {
                 <Route path="/home" exact component={UserDashboardComponent}/>
                 <Route path="/logout" exact component={LogoutComponent}/>
                 <Route path="/users" exact component={UsersComponent}/>
+                <Route path="/issues/all" exact component={AllIssuesComponent}/>
                 <Route path="/issues/add" exact component={AddIssueComponent}/>
                 <Route path="/projects/add" exact component={AddProjectsComponent}/>
                 <Route path="/projects/all" exact component={AllProjectsComponent}/>

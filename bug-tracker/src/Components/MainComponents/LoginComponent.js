@@ -1,13 +1,13 @@
-import React, { useState} from "react";
+import React, { useState, useRef} from "react";
 import {useHistory} from "react-router-dom";
 
 function LoginComponent() {
 
     const history = useHistory()
-
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const [incorrectUserInput, setIncorrectUserInput] = useState(false)
+    const [incorrectUserInput, setIncorrectUserInput] = useState(false);
+    const passwordRef = useRef(null);
 
     function handleChange(event) {
         if (event.target.id === "userName") {
@@ -36,6 +36,8 @@ function LoginComponent() {
             if (response.status >= 200 && response.status <=299) {
                 return response.json();
             } else {
+                setIncorrectUserInput(true);
+                passwordRef.current.select();
                 return null;
             }
        }).then(data=>{
@@ -46,8 +48,6 @@ function LoginComponent() {
                     history.push({
                         pathname: '/home'
                     });
-                } else{
-                    setIncorrectUserInput(true);
                 }
        }).catch(err=>console.log(err));
     }
@@ -72,6 +72,7 @@ function LoginComponent() {
                         <div className="form-group col-6 login-item">
                             <label htmlFor="current-password">Password:</label>
                             <input id="current-password"
+                                   ref={passwordRef}
                                    type="password"
                                    className="form-control"
                                    placeholder="input password..."

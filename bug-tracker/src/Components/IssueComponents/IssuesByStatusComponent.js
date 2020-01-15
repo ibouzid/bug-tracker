@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import IssueCardComponent from "./IssueCardComponent";
+import IssueCardsComponent from "./IssueCardsComponent";
 import PaginationComponent from "../Helpers/PaginationComponent";
 
 function IssuesByStatusComponent(props) {
@@ -22,7 +22,7 @@ if(props.issues!==0){
 
             </div>
             <div className="row">
-                <IssueCardComponent data={issuesOnCurrentPage}/>
+                <IssueCardsComponent data={issuesOnCurrentPage}/>
             </div>
             <div className="ml-2">
                 <PaginationComponent  totalItems={props.issues.length} itemsPerPage ={issuesPerPage} handlePageClick={handlePageClick} />

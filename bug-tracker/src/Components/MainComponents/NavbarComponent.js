@@ -64,7 +64,9 @@ function NavbarComponent() {
                                data-toggle="collapse"
                                href="#issue-Submenu">Issues</button>
                             <ul className="collapse list-unstyled" id="issue-Submenu">
-                                <li className="sub-item ml-5"> All Issues</li>
+                                <Link to="/issues/all">
+                                    <li className="sub-item ml-5"> All Issues</li>
+                                </Link>
                                 <li className="sub-item ml-5"> My Issues</li>
                             </ul>
                         </li>

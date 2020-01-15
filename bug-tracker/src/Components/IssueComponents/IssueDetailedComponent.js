@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useParams, useHistory} from "react-router-dom";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import UserOptionComponent from "../UserComponents/UserOptionComponent";
-import TokenExpirationInMinutes from "../Helpers/TokenExpirationInMinutes";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
+import handleChange from "../EventHandlers/handleChange";
+
 
 function IssueDetailedComponent(props) {
 
@@ -16,11 +17,11 @@ function IssueDetailedComponent(props) {
     const [submittedBy, setSubmittedBy] = useState("");
     const [userId, setUserId] = useState("");
     const [points, setPoints] = useState("");
-    //const [attachment, setAttachment] = useState("");
     const [issueData, setIssueData] = useState({});
     const jwt = GetValueFromLocalStorage("token");
+    const [dataReceived, setDataReceived] = useState(false);
     const param = useParams();
-    TokenExpirationInMinutes();
+    const history = useHistory();
 
     useEffect(()=>{
         fetch(`http://localhost:5000/projects/${param.projectId}/issues/${param.issueId}`,{
@@ -35,19 +36,22 @@ function IssueDetailedComponent(props) {
                 if (response.status >= 200 && response.status <=299) {
                     return response.json();
                 } else {
+                    localStorage.clear();
+                    history.push("/logout");
                     return null;
                 }
             }).then(data => {
                 if(data){
+                    setDataReceived(true);
                     setIssueData(...data.data);
                 }else{
                    console.log("No Data Retrieved")
                 }
             })
             .then(()=>{
+                if(dataReceived) {
                     setSeverity(issueData.severity);
                     setTicketType(issueData.ticketType);
-                    //setAttachment(issueData.attachment);
                     setPoints(issueData.points);
                     setUserId(issueData.userId);
                     setTitle(issueData.title);
@@ -63,52 +67,14 @@ function IssueDetailedComponent(props) {
                     document.getElementById("assignedTo").value = issueData.userId;
                     document.getElementById("points").value = issueData.points;
                     document.getElementById("status").value = issueData.status;
-
+                }
             });
 
 
     },[param.projectId, param.issueId, issueData.title, issueData.issueDescription, issueData.ticketType, issueData.points,
-             issueData.submittedBy,issueData.userId, issueData.status, issueData.severity]);
-
-    const handleStuff = (event, setFunc) =>{
-
-    }
+             issueData.submittedBy,issueData.userId, issueData.status, issueData.severity, dataReceived, history, jwt]);
 
 
-    function handleChange(event) {
-        if (event.target.id === "issueTitle") {
-            setTitle(event.target.value)
-        }
-        if (event.target.id === "issueDescription") {
-            setIssueDescription(event.target.value)
-        }
-        if (event.target.id === "severity") {
-            setSeverity(event.target.value)
-        }
-        if(event.target.id === "ticketType") {
-            setTicketType(event.target.value)
-        }
-        if(event.target.id === "status"){
-            setStatus(event.target.value)
-        }
-        if(event.target.id === "submittedBy") {
-            setSubmittedBy(event.target.value)
-        }
-        if(event.target.id === "assignedTo"){
-            setUserId(event.target.value)
-        }
-        if(event.target.id === "points"){
-            setPoints(event.target.value)
-        }
-        if(event.target.id === "attachment"){
-            //setAttachment(event.target.value)
-            let files = event.target.files;
-            let reader = new FileReader();
-            reader.readAsDataURL(files[0]);
-            //reader.onload = (file) => {setAttachment(file.target.result)}
-
-        }
-    }
     function handleSubmit() {
         let issue = {
             title:title,
@@ -123,6 +89,7 @@ function IssueDetailedComponent(props) {
             lastUpdated: Date().toString()
 
         };
+        console.log(issue)
         fetch(`http://localhost:5000/issues/${param.issueId}`, {
             method: 'PUT',
             body: JSON.stringify(issue),
@@ -132,14 +99,15 @@ function IssueDetailedComponent(props) {
                 'Accept': 'application/json'
             }
         }).then(response => {
+            console.log(response)
             if (response.status >= 200 && response.status <=299) {
+                console.log(response)
                 return response.json();
             } else {
                 return null;
             }
         }).then(data=>console.log(data))
             .catch(err=>console.log(err));
-        alert("Issue Successfully Updated!");
 
 
     }
@@ -164,7 +132,7 @@ function IssueDetailedComponent(props) {
                                 <div className="form-group col-xl-12 col-lg-11 col-md-11 col-sm-10">
                                     <label htmlFor="issueTitle">Title</label>
                                     <input
-                                        onChange={handleChange}
+                                        onChange={event => handleChange(event, ["issueTitle", setTitle])}
                                         type="text"
                                         className="form-control"
                                         id="issueTitle"
@@ -177,7 +145,7 @@ function IssueDetailedComponent(props) {
                                 <div className="form-group col-8">
                                     <label htmlFor="issueDescription">Description</label>
                                     <textarea
-                                        onChange={handleChange}
+                                        onChange={event => handleChange(event, ["issueDescription", setIssueDescription])}
                                         rows="16"
                                         cols="100"
                                         className="form-control"
@@ -186,44 +154,54 @@ function IssueDetailedComponent(props) {
                                 <div className="col-xl-4 col-lg-3 col-md-3 col-sm-2">
                                     <div className="form-group">
                                         <label htmlFor="severity">Severity</label>
-                                        <select id="severity" className="form-control" onChange={handleChange}>
-                                            <option>Select Severity</option>
-                                            <option value="low">Low</option>
-                                            <option value="medium">Medium</option>
-                                            <option value="high">High</option>
+                                        <select id="severity"
+                                                className="form-control"
+                                                onChange={event => handleChange(event, ["severity", setSeverity])}>
+                                                        <option disabled>Select Severity</option>
+                                                        <option value="low">Low</option>
+                                                        <option value="medium">Medium</option>
+                                                        <option value="high">High</option>
                                         </select>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="ticketType">Ticket Type</label>
-                                        <select id="ticketType" className="form-control" onChange={handleChange}>
-                                            <option>Select Ticket Type</option>
-                                            <option value="bug">Bug</option>
-                                            <option value="feature">Feature</option>
-                                            <option value="suggestion">Suggestion</option>
+                                        <select id="ticketType"
+                                                className="form-control"
+                                                onChange={event => handleChange(event, ["ticketType", setTicketType])}>
+                                                        <option disabled>Select Ticket Type</option>
+                                                        <option value="bug">Bug</option>
+                                                        <option value="feature">Feature</option>
+                                                        <option value="suggestion">Suggestion</option>
                                         </select>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="submittedBy">Submitted By:</label>
-                                        <select id="submittedBy" className="form-control" onChange={handleChange}>
-                                            <option>Select User</option>
-                                            <UserOptionComponent/>
+                                        <select id="submittedBy"
+                                                className="form-control"
+                                                onChange={event => handleChange(event, ["submittedBy", setSubmittedBy])}>
+                                                        <option disabled>Select User</option>
+                                                        <UserOptionComponent/>
                                         </select>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="assignedTo">Assigned To:</label>
-                                        <select id="assignedTo" className="form-control" onChange={handleChange}>
-                                            <option>Select User</option>
-                                            <UserOptionComponent/>
+                                        <select id="assignedTo"
+                                                className="form-control"
+                                                onChange={event => handleChange(event, ["assignedTo", setUserId])}>
+                                                        <option disabled>Select User</option>
+                                                        <UserOptionComponent/>
                                         </select>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="status">Status</label>
-                                        <select id="status" className="form-control" onChange={handleChange}>
-                                            <option>Select Ticket Status</option>
-                                            <option value="open">Open</option>
-                                            <option value="inProgress">In Progress</option>
-                                            <option value="underReview">Under Review</option>
-                                            <option value="completed">Completed</option>
+                                        <select id="status"
+                                                className="form-control"
+                                                onChange={event => handleChange(event, ["status", setStatus])}>
+                                                        <option disabled>Select Ticket Status</option>
+                                                        <option value="open">Open</option>
+                                                        <option value="inProgress">In Progress</option>
+                                                        <option value="underReview">Under Review</option>
+                                                        <option value="completed">Completed</option>
                                         </select>
                                     </div>
                                 </div>
@@ -232,13 +210,10 @@ function IssueDetailedComponent(props) {
 
                                 <div className="form-group col-6">
                                     <label htmlFor="points">Points</label>
-                                    <input type="text" id="points" className="form-control" onChange={handleChange}/>
+                                    <input type="text" id="points"
+                                           className="form-control"
+                                           onChange={event => handleChange(event, ["points", setPoints])}/>
                                 </div>
-                                <div className="form-group  col-4">
-                                    <label htmlFor="attachment">Attachment:</label>
-                                    <input type="file" id="attachment" onChange={handleChange}/>
-                                </div>
-
 
                             </div><br/>
                             <Link to={`/projects/${projectId}/${issueData.projectName}`}>

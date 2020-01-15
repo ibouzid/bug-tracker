@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useState} from "react";
+import {useHistory} from "react-router-dom";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
-import TokenExpiration from "../Helpers/TokenExpirationInMinutes";
 import UserCardComponent from "./UserCardComponent";
 
 function UsersComponent(){
-    const [users, setUsers] = useState([])
-    const jwt = GetValueFromLocalStorage("token")
-    TokenExpiration()
+    const [users, setUsers] = useState([]);
+    const jwt = GetValueFromLocalStorage("token");
+    const history = useHistory();
 
     useEffect(()=>{
         fetch("http://localhost:5000/users",
@@ -16,13 +16,15 @@ function UsersComponent(){
                 if (response.status >= 200 && response.status <=299) {
                     return response.json();
                 } else {
+                    localStorage.clear();
+                    history.push("/logout");
                     return null;
                 }
             }).then(data => {
                 if(data){
                     setUsers(data.data);
                 }}).catch(err=>console.log(err));
-    },[jwt])
+    },[jwt,history])
 
     return(
         <div>

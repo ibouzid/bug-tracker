@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useParams, useHistory} from "react-router-dom";
 import IssuesByStatusComponent from "./IssuesByStatusComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
-import handleSelect from "../EventHandlers/HandleSelect";
+import handleSelect from "../EventHandlers/handleSelect";
 
 function IssueBoardComponent() {
 
@@ -14,6 +14,7 @@ function IssueBoardComponent() {
     const [selectedStatus, setCurrentStatus] = useState("inProgress");
     const [selectedIssues, setSelectedIssues] = useState([])
     const params = useParams();
+    const history = useHistory();
     const jwt = GetValueFromLocalStorage("token");
 
 
@@ -43,6 +44,8 @@ function IssueBoardComponent() {
                 if (response.status >= 200 && response.status <=299) {
                     return response.json();
                 } else {
+                    localStorage.clear();
+                    history.push("/logout");
                     return null;
                 }
             }).then(data => {
@@ -55,7 +58,7 @@ function IssueBoardComponent() {
                 }
             }).catch(err=>console.log(err));
 
-    },[params.projectId, jwt]);
+    },[params.projectId, jwt, history]);
 
         return(
             <div>
@@ -64,9 +67,9 @@ function IssueBoardComponent() {
                     <div className="board row pb-5 mb-5">
                         <h1 className="col-3">Project: {params.projectName} </h1>
 
-                            <select className="col-2 select-css" id="selectStatus" onChange={event => {handleSelect(event, setCurrentStatus)}}>
-                                <option id="open" value="open">Open Issues</option>
-                                <option id="inProgress" selected={true} value="inProgress">In Progress Issues</option>
+                            <select className="col-2 select-css" id="selectStatus" defaultValue="inProgress" onChange={event => {handleSelect(event, setCurrentStatus)}}>
+                                <option id="open" value="open" >Open Issues</option>
+                                <option id="inProgress"  value="inProgress">In Progress Issues</option>
                                 <option id="underReview" value="underReview">Under Review Issues</option>
                                 <option id="completed" value="completed">Completed Issues</option>
                             </select>
