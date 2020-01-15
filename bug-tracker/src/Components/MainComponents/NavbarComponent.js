@@ -8,6 +8,9 @@ function NavbarComponent() {
 
     const userInfo = GetValueFromLocalStorage("user");
     const [user] = useState(JSON.parse(userInfo));
+    function handleLogout() {
+        localStorage.clear();
+    }
     if(user){
         return(
             <div className="wrapper">
@@ -77,21 +80,11 @@ function NavbarComponent() {
                             <button className="btn-primary nav-btn">Settings</button>
                         </li>
                     </ul>
+                    <Link to="/">
+                        <button className="logout-btn btn-danger" onClick={handleLogout}>Logout</button>
+                    </Link>
 
                 </nav>
-
-                <div id="content">
-
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                        <div className="container-fluid">
-
-                            <button type="button" id="sidebarCollapse" className="btn btn-info">
-                                <i className="fas fa-align-left"></i>
-                                <span>Toggle Sidebar</span>
-                            </button>
-                        </div>
-                    </nav>
-                </div>
             </div>
         )
     }else{

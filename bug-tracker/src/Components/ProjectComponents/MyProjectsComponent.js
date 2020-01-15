@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 import ProjectCardComponent from "./ProjectCardComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import {Link, useHistory} from "react-router-dom";
 import PaginationComponent from "../Helpers/PaginationComponent";
+import {UserContext} from "../Helpers/UserContextProvider";
 
 function MyProjectsComponent() {
 
-    const userIdString = GetValueFromLocalStorage("user");
     const token = GetValueFromLocalStorage("token");
     const [jwt] = useState(token);
     const [projects, setProjects] = useState([]);
@@ -17,10 +17,11 @@ function MyProjectsComponent() {
     const indexOfLastPage = currentPageNumber * projectsPerPage;
     const indexOfFirstPage = indexOfLastPage - projectsPerPage;
     const projectsOnCurrentPage = projects.slice(indexOfFirstPage, indexOfLastPage);
+    const {user} = useContext(UserContext);
 
     useEffect(()=>{
 
-        fetch(`http://localhost:5000/users/${JSON.parse(userIdString)[0].userId}/projects`,
+        fetch(`http://localhost:5000/users/${user[0].userId}/projects`,
             {headers:{authorization: `Bearer ${jwt}`}})
             .then(response => {
                 if (response.status >= 200 && response.status <=299) {
@@ -35,7 +36,7 @@ function MyProjectsComponent() {
                     setProjects(data.data)
                 }
             }).catch(err=>console.log(err));
-    },[jwt, userIdString, history]);
+    },[jwt, history]);
 
     function handlePageClick(number){
         setCurrentPageNumber(number);
@@ -54,7 +55,7 @@ function MyProjectsComponent() {
                 <div className="board row">
                     <ProjectCardComponent data={projectsOnCurrentPage}/>
                 </div>
-                <div className="board p-3">
+                <div className="board p-3 row">
                     <PaginationComponent  totalItems={projects.length} itemsPerPage ={projectsPerPage} handlePageClick={handlePageClick} />
                 </div>
             </div>

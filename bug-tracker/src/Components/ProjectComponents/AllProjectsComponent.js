@@ -53,7 +53,7 @@ function AllProjectsComponent() {
             <div className="board row">
                 <ProjectCardComponent data={projectsOnCurrentPage}/>
             </div>
-            <div className="board">
+            <div className="board row">
                 <PaginationComponent  totalItems={projects.length} itemsPerPage ={projectsPerPage} handlePageClick={handlePageClick} />
             </div>
         </div>

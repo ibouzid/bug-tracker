@@ -7,12 +7,13 @@ import handleSelect from "../EventHandlers/handleSelect";
 
 function IssueBoardComponent() {
 
+    const userIdString = GetValueFromLocalStorage("user");
     const [openIssues, setOpenIssues] = useState([]);
     const [inProgressIssues, setInProgressIssues] = useState([]);
     const [underReviewIssues, setUnderReviewIssues] = useState([]);
     const [completedIssues, setCompletedIssues] = useState([]);
     const [selectedStatus, setCurrentStatus] = useState("inProgress");
-    const [selectedIssues, setSelectedIssues] = useState([])
+    const [selectedIssues, setSelectedIssues] = useState([]);
     const params = useParams();
     const history = useHistory();
     const jwt = GetValueFromLocalStorage("token");
@@ -38,7 +39,7 @@ function IssueBoardComponent() {
     },[selectedStatus]);
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/projects/${params.projectId}/issues`,
+        fetch(`http://localhost:5000/projects/${params.projectId}/user/${JSON.parse(userIdString)[0].userId}/issues`,
                 {headers: {authorization: `Bearer ${jwt}`}})
             .then(response => {
                 if (response.status >= 200 && response.status <=299) {

@@ -45,7 +45,7 @@ function AllIssuesComponent() {
             <h1 className="board pl-4">All Issues</h1>
             <div className="board row">
                 <IssueCardsComponent data={issuesOnCurrentPage}/>
-                <div className="ml-2">
+                <div className="ml-2 row">
                     <PaginationComponent  totalItems={issues.length} itemsPerPage ={issuesPerPage} handlePageClick={handlePageClick} />
                 </div>
             </div>

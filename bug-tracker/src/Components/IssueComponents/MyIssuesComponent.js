@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import { useHistory} from "react-router-dom";
 import PaginationComponent from "../Helpers/PaginationComponent";
 import IssueCardsComponent from "./IssueCardsComponent";
+import {UserContext} from "../Helpers/UserContextProvider";
 
 function MyIssuesComponent() {
 
-    const userIdString = GetValueFromLocalStorage("user");
     const token = GetValueFromLocalStorage("token");
     const [jwt] = useState(token);
     const [issues, setIssues] = useState([]);
@@ -17,10 +17,11 @@ function MyIssuesComponent() {
     const indexOfLastPage = currentPageNumber * issuesPerPage;
     const indexOfFirstPage = indexOfLastPage - issuesPerPage;
     const issuesOnCurrentPage = issues.slice(indexOfFirstPage, indexOfLastPage);
+    const {user} = useContext(UserContext);
 
     useEffect(()=>{
 
-        fetch(`http://localhost:5000/users/${JSON.parse(userIdString)[0].userId}/issues`,
+        fetch(`http://localhost:5000/users/${user[0].userId}/issues`,
             {headers:{authorization: `Bearer ${jwt}`}})
             .then(response => {
                 if (response.status >= 200 && response.status <=299) {
@@ -35,7 +36,7 @@ function MyIssuesComponent() {
                 setIssues(data.data)
             }
         }).catch(err=>console.log(err));
-    },[jwt, userIdString, history]);
+    },[jwt, history]);
 
     function handlePageClick(number){
         setCurrentPageNumber(number);
@@ -51,7 +52,7 @@ function MyIssuesComponent() {
             <div className="board row">
                 <IssueCardsComponent data={issuesOnCurrentPage}/>
             </div>
-            <div className="board p-3">
+            <div className="board p-3 row">
                 <PaginationComponent  totalItems={issues.length} itemsPerPage ={issuesPerPage} handlePageClick={handlePageClick} />
             </div>
         </div>

@@ -1,5 +1,6 @@
-import React, { useState, useRef} from "react";
+import React, {useState, useRef, useContext} from "react";
 import {useHistory} from "react-router-dom";
+import {UserContext} from "../Helpers/UserContextProvider";
 
 function LoginComponent() {
 
@@ -8,6 +9,7 @@ function LoginComponent() {
     const [password, setPassword] = useState("");
     const [incorrectUserInput, setIncorrectUserInput] = useState(false);
     const passwordRef = useRef(null);
+    const {setUser} = useContext(UserContext);
 
     function handleChange(event) {
         if (event.target.id === "userName") {
@@ -43,8 +45,8 @@ function LoginComponent() {
        }).then(data=>{
                 if(data){
                     localStorage.setItem("token", data.token);
+                    setUser(data.user);
                     localStorage.setItem("user", JSON.stringify(data.user));
-                    localStorage.setItem("timeStamp", Date.now().toString());
                     history.push({
                         pathname: '/home'
                     });
