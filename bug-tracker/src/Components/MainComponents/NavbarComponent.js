@@ -67,7 +67,9 @@ function NavbarComponent() {
                                 <Link to="/issues/all">
                                     <li className="sub-item ml-5"> All Issues</li>
                                 </Link>
+                                <Link to="/issues/user">
                                 <li className="sub-item ml-5"> My Issues</li>
+                                </Link>
                             </ul>
                         </li>
                         <li className="dash-link">

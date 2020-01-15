@@ -20,7 +20,8 @@ function MyProjectsComponent() {
 
     useEffect(()=>{
 
-        fetch(`http://localhost:5000/users/${JSON.parse(userIdString)[0].userId}/projects`,{headers:{authorization: `Bearer ${jwt}`}})
+        fetch(`http://localhost:5000/users/${JSON.parse(userIdString)[0].userId}/projects`,
+            {headers:{authorization: `Bearer ${jwt}`}})
             .then(response => {
                 if (response.status >= 200 && response.status <=299) {
                     return response.json();
@@ -32,7 +33,6 @@ function MyProjectsComponent() {
             }).then(data => {
                 if(data){
                     setProjects(data.data)
-                    history.push("/projects/user")
                 }
             }).catch(err=>console.log(err));
     },[jwt, userIdString, history]);
