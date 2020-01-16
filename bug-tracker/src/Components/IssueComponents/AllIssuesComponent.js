@@ -15,13 +15,14 @@ function AllIssuesComponent() {
     const indexOfFirstPage = indexOfLastPage - issuesPerPage;
     const issuesOnCurrentPage = issues.slice(indexOfFirstPage, indexOfLastPage);
     const history = useHistory();
+    const GET_ISSUES_URL = `http://localhost:5000/issues`;
 
     function handlePageClick(number){
         setCurrentPageNumber(number);
     }
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/issues`,
+        fetch(GET_ISSUES_URL,
             {headers: {authorization: `Bearer ${jwt}`}})
             .then(response => {
                 if (response.status >= 200 && response.status <=299) {

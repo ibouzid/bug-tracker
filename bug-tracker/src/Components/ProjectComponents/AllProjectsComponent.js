@@ -15,6 +15,7 @@ function AllProjectsComponent() {
     const indexOfFirstPage = indexOfLastPage - projectsPerPage;
     const projectsOnCurrentPage = projects.slice(indexOfFirstPage, indexOfLastPage);
     const history = useHistory();
+    const GET_PROJECT_URL = "http://localhost:5000/projects";
 
 
     function handlePageClick(number){
@@ -23,7 +24,7 @@ function AllProjectsComponent() {
     const jwt = GetValueFromLocalStorage("token");
 
     useEffect(()=>{
-        fetch("http://localhost:5000/projects",
+        fetch(GET_PROJECT_URL,
             {headers:{authorization: `Bearer ${jwt}`}})
             .then(response => {
                 if (response.status >= 200 && response.status <=299) {

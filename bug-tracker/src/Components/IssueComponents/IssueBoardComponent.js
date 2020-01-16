@@ -18,7 +18,7 @@ function IssueBoardComponent() {
     const params = useParams();
     const history = useHistory();
     const jwt = GetValueFromLocalStorage("token");
-
+    const GET_PROJECT_ISSUES_URL = `http://localhost:5000/projects/${params.projectId}/user/${user[0].userId}/issues`;
 
     useEffect(()=>{
         switch(selectedStatus) {
@@ -40,8 +40,8 @@ function IssueBoardComponent() {
     },[selectedStatus]);
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/projects/${params.projectId}/user/${user[0].userId}/issues`,
-                {headers: {authorization: `Bearer ${jwt}`}})
+
+        fetch(GET_PROJECT_ISSUES_URL,{headers: {authorization: `Bearer ${jwt}`}})
             .then(response => {
                 if (response.status >= 200 && response.status <=299) {
                     return response.json();

@@ -18,10 +18,11 @@ function MyProjectsComponent() {
     const indexOfFirstPage = indexOfLastPage - projectsPerPage;
     const projectsOnCurrentPage = projects.slice(indexOfFirstPage, indexOfLastPage);
     const {user} = useContext(UserContext);
+    const GET_USER_PROJECT_URL = `http://localhost:5000/users/${user[0].userId}/projects`;
 
     useEffect(()=>{
 
-        fetch(`http://localhost:5000/users/${user[0].userId}/projects`,
+        fetch(GET_USER_PROJECT_URL,
             {headers:{authorization: `Bearer ${jwt}`}})
             .then(response => {
                 if (response.status >= 200 && response.status <=299) {

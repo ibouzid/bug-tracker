@@ -18,11 +18,11 @@ function MyIssuesComponent() {
     const indexOfFirstPage = indexOfLastPage - issuesPerPage;
     const issuesOnCurrentPage = issues.slice(indexOfFirstPage, indexOfLastPage);
     const {user} = useContext(UserContext);
+    const GET_USER_ISSUES_URL = `http://localhost:5000/users/${user[0].userId}/issues`;
 
     useEffect(()=>{
 
-        fetch(`http://localhost:5000/users/${user[0].userId}/issues`,
-            {headers:{authorization: `Bearer ${jwt}`}})
+        fetch(GET_USER_ISSUES_URL, {headers:{authorization: `Bearer ${jwt}`}})
             .then(response => {
                 if (response.status >= 200 && response.status <=299) {
                     return response.json();

@@ -22,10 +22,12 @@ function IssueDetailedComponent(props) {
     const [dataReceived, setDataReceived] = useState(false);
     const param = useParams();
     const history = useHistory();
+    const GET_PROJECT_ISSUES_URL = `http://localhost:5000/projects/${param.projectId}/issues/${param.issueId}`;
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/projects/${param.projectId}/issues/${param.issueId}`,{
-            method: 'GET',
+
+        fetch(GET_PROJECT_ISSUES_URL,{
+                method: 'GET',
                 headers : {
                 authorization: `Bearer ${jwt}`,
                     'Content-Type': 'application/json',
@@ -101,7 +103,6 @@ function IssueDetailedComponent(props) {
         }).then(response => {
             console.log(response)
             if (response.status >= 200 && response.status <=299) {
-                console.log(response)
                 return response.json();
             } else {
                 return null;

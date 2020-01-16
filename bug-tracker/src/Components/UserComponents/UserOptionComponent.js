@@ -7,9 +7,10 @@ function UserOptionComponent(){
     const [users, setUsers]  = useState([]);
     const jwt = GetValueFromLocalStorage("token");
     const history = useHistory();
+    const GET_USERS_URL = "http://localhost:5000/users";
 
     useEffect(()=>{
-        fetch("http://localhost:5000/users",
+        fetch(GET_USERS_URL,
             {headers:{authorization: `Bearer ${jwt}`}})
             .then(response => {
                 if (response.status >= 200 && response.status <=299) {

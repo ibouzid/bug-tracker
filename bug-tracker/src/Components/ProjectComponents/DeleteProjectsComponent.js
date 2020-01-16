@@ -6,10 +6,11 @@ function DeleteProjectsComponent(props) {
     const params = useParams();
     const history = useHistory();
     const jwt = GetValueFromLocalStorage("token");
+    const DELETE_PROJECT_URL = "http://localhost:5000/projects";
 
     function handleClick() {
 
-         fetch("http://localhost:5000/projects", {
+         fetch(DELETE_PROJECT_URL, {
             method: 'DELETE',
             body: JSON.stringify({projectId:params.projectId}),
             headers : {

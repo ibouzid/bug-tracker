@@ -16,6 +16,7 @@ function AddProjectsComponent() {
     const [projectManager, setProjectManager] = useState("");
     const jwt = GetValueFromLocalStorage("token");
     const history = useHistory();
+    const POST_PROJECT_URL = `http://localhost:5000/projects`
 
 
     function handleSubmit(event) {
@@ -26,7 +27,7 @@ function AddProjectsComponent() {
             projectDescription: projectDescription,
             projectManager: projectManager
         }; console.log(project)
-        fetch(`http://localhost:5000/projects`, {
+        fetch(POST_PROJECT_URL, {
             method: 'POST',
             body: JSON.stringify(project),
             headers : {

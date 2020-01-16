@@ -10,6 +10,7 @@ function LoginComponent() {
     const [incorrectUserInput, setIncorrectUserInput] = useState(false);
     const passwordRef = useRef(null);
     const {setUser} = useContext(UserContext);
+    const LOGIN_URL = `http://localhost:5000/login`;
 
     function handleChange(event) {
         if (event.target.id === "userName") {
@@ -27,7 +28,7 @@ function LoginComponent() {
             userName: userName,
             password: password
         }
-       fetch(`http://localhost:5000/login`, {
+       fetch(LOGIN_URL, {
             method: 'POST',
             body: JSON.stringify(user),
             headers : {

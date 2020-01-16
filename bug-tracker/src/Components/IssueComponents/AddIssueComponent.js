@@ -22,13 +22,15 @@ function AddIssueComponent(props) {
     const [projectName, setProjectName] = useState("");
     const jwt = GetValueFromLocalStorage("token");
     const history = useHistory();
+    const GET_PROJECT_URL = `http://localhost:5000/projects/${projectId}`;
+    const POST_ISSUE_URL = `http://localhost:5000/issues`;
+
 
     useEffect(()=>{
         if(props){
             setProjectId(props.location.state.projectId)
         }
-        fetch(`http://localhost:5000/projects/${projectId}`,
-            {headers:{authorization: `Bearer ${jwt}`}})
+        fetch(GET_PROJECT_URL,{headers:{authorization: `Bearer ${jwt}`}})
             .then(response => {
                 if (response.status >= 200 && response.status <=299) {
                     return response.json();
@@ -61,9 +63,8 @@ function AddIssueComponent(props) {
             points: points,
             projectName: projectName,
             lastUpdated: createDate
-
         };
-        fetch(`http://localhost:5000/issues`, {
+        fetch( POST_ISSUE_URL,{
             method: 'POST',
             body: JSON.stringify(issue),
             headers : {
