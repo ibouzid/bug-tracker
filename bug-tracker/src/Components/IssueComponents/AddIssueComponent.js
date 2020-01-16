@@ -43,10 +43,11 @@ function AddIssueComponent(props) {
                     setProjectName(data.data[0].projectName)
                 }
             }).catch(err=>console.log(err));
-    },[jwt, projectId, history])
+    },[jwt, projectId, history, props])
 
 
-    function handleSubmit() {
+    function handleSubmit(event) {
+        event.preventDefault();
         let issue = {
             createDate: createDate,
             title:title,
@@ -81,6 +82,7 @@ function AddIssueComponent(props) {
         }).then(data=>console.log(data))
             .catch(err=>console.log(err));
         alert("Issue Successfully Added!");
+        history.push(`/projects/${projectId}/${projectName}`);
 
     }
     function handleDate(event) {
@@ -200,9 +202,8 @@ function AddIssueComponent(props) {
 
 
               </div>
-              <Link to={`/projects/${projectId}/${projectName}`}>
               <button onClick={handleSubmit} type="submit" className="btn btn-primary col-1">Add</button>
-              </Link>
+
               <Link to={`/projects/${projectId}/${projectName}`}>
                   <button type="cancel" className="btn btn-light col-1">Cancel</button>
               </Link>

@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Link, useParams, useHistory} from "react-router-dom";
 import IssuesByStatusComponent from "./IssuesByStatusComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 import handleSelect from "../EventHandlers/handleSelect";
+import {UserContext} from "../Helpers/UserContextProvider";
 
 function IssueBoardComponent() {
 
-    const userIdString = GetValueFromLocalStorage("user");
+    const {user} = useContext(UserContext);
     const [openIssues, setOpenIssues] = useState([]);
     const [inProgressIssues, setInProgressIssues] = useState([]);
     const [underReviewIssues, setUnderReviewIssues] = useState([]);
@@ -39,7 +40,7 @@ function IssueBoardComponent() {
     },[selectedStatus]);
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/projects/${params.projectId}/user/${JSON.parse(userIdString)[0].userId}/issues`,
+        fetch(`http://localhost:5000/projects/${params.projectId}/user/${user[0].userId}/issues`,
                 {headers: {authorization: `Bearer ${jwt}`}})
             .then(response => {
                 if (response.status >= 200 && response.status <=299) {

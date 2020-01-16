@@ -17,8 +17,15 @@ function DeleteProjectsComponent(props) {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
-        }).then(res => res.json())
-             .then(res => console.log(res))
+        }).then(response => {
+             if (response.status >= 200 && response.status <=299) {
+                 return response.json();
+             } else {
+                 localStorage.clear();
+                 history.push("/logout");
+                 return null;
+             }
+         }).then(res => console.log(res))
              .catch(err=>console.log(err));
         history.push("/projects/all")
     }
@@ -31,9 +38,7 @@ function DeleteProjectsComponent(props) {
                 <button className="btn-danger" onClick={handleClick}>Yes</button>
                 <button className="btn-primary" onClick={handleCancel}>No</button>
             </div>
-
     )
-
 }
 
 export default DeleteProjectsComponent

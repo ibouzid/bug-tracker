@@ -16,6 +16,7 @@ function AllProjectsComponent() {
     const projectsOnCurrentPage = projects.slice(indexOfFirstPage, indexOfLastPage);
     const history = useHistory();
 
+
     function handlePageClick(number){
         setCurrentPageNumber(number);
     }

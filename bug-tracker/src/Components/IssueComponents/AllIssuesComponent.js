@@ -37,18 +37,19 @@ function AllIssuesComponent() {
             }
         }).catch(err=>console.log(err));
 
-    },[jwt]);
+    },[jwt, history]);
 
     return(
         <div>
             <NavbarComponent/>
             <h1 className="board pl-4">All Issues</h1>
-            <div className="board row">
-                <IssueCardsComponent data={issuesOnCurrentPage}/>
-                <div className="ml-2 row">
+                <div className="board row">
+                    <IssueCardsComponent data={issuesOnCurrentPage}/>
+                </div>
+
+                <div className="board row">
                     <PaginationComponent  totalItems={issues.length} itemsPerPage ={issuesPerPage} handlePageClick={handlePageClick} />
                 </div>
-            </div>
         </div>
 
     )
