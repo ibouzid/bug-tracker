@@ -1,11 +1,10 @@
-import React, {useContext, useState} from "react";
+import React from "react";
 import izzy from "../../Images/izzy.png";
 import {Link} from "react-router-dom";
-import {UserContext} from "../Helpers/UserContextProvider";
 
 function NavbarComponent() {
 
-    const {user} = useContext(UserContext);
+    const user = localStorage.getItem("user");
     function handleLogout() {
         localStorage.clear();
     }

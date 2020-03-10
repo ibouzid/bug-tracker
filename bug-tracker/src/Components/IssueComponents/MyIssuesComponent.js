@@ -1,10 +1,9 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import { useHistory} from "react-router-dom";
 import PaginationComponent from "../Helpers/PaginationComponent";
 import IssueCardsComponent from "./IssueCardsComponent";
-import {UserContext} from "../Helpers/UserContextProvider";
 
 function MyIssuesComponent() {
 
@@ -17,7 +16,7 @@ function MyIssuesComponent() {
     const indexOfLastPage = currentPageNumber * issuesPerPage;
     const indexOfFirstPage = indexOfLastPage - issuesPerPage;
     const issuesOnCurrentPage = issues.slice(indexOfFirstPage, indexOfLastPage);
-    const {user} = useContext(UserContext);
+    const user = JSON.parse(localStorage.getItem("user"));
     const GET_USER_ISSUES_URL = `http://localhost:5000/users/${user[0].userId}/issues`;
 
     useEffect(()=>{

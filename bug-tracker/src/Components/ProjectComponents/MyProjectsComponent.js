@@ -1,10 +1,9 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import GetValueFromLocalStorage from "../Helpers/GetValueFromLocalStorage";
 import ProjectCardComponent from "./ProjectCardComponent";
 import NavbarComponent from "../MainComponents/NavbarComponent";
 import {Link, useHistory} from "react-router-dom";
 import PaginationComponent from "../Helpers/PaginationComponent";
-import {UserContext} from "../Helpers/UserContextProvider";
 
 function MyProjectsComponent() {
 
@@ -17,9 +16,11 @@ function MyProjectsComponent() {
     const indexOfLastPage = currentPageNumber * projectsPerPage;
     const indexOfFirstPage = indexOfLastPage - projectsPerPage;
     const projectsOnCurrentPage = projects.slice(indexOfFirstPage, indexOfLastPage);
-    const {user} = useContext(UserContext);
+    const user = JSON.parse(localStorage.getItem("user"));
     const GET_USER_PROJECT_URL = `http://localhost:5000/users/${user[0].userId}/projects`;
 
+    console.log(user[0].userId)
+    console.log(user[0])
     useEffect(()=>{
 
         fetch(GET_USER_PROJECT_URL,
@@ -34,6 +35,7 @@ function MyProjectsComponent() {
                 }
             }).then(data => {
                 if(data){
+
                     setProjects(data.data)
                 }
             }).catch(err=>console.log(err));

@@ -23,11 +23,11 @@ function LoginComponent() {
     }
 
     function handleSubmit(event) {
-        event.preventDefault()
+        event.preventDefault();
         const user = {
             userName: userName,
             password: password
-        }
+        };
        fetch(LOGIN_URL, {
             method: 'POST',
             body: JSON.stringify(user),

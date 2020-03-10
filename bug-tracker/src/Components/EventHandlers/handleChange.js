@@ -1,9 +1,9 @@
 function handleChange(event, options){
 
-    const [name, setFunction] = options
+    const [name, setFunction] = options;
 
     if(event.target.id === name){
-        setFunction(event.target.value)
+        setFunction(event.target.value);
     }
 
 }

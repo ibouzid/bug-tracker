@@ -9,6 +9,5 @@ function UserContextProvider(props) {
             {props.children}
         </UserContext.Provider>
     )
-
 }
 export {UserContext, UserContextProvider}

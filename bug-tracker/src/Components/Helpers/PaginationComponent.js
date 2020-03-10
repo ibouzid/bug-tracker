@@ -5,7 +5,7 @@ function PaginationComponent(props) {
     //page buttons for pagination depending on how many items are on each page
     let pages = [];
     for(let i = 1; i<= Math.ceil(props.totalItems/props.itemsPerPage); i++){
-        pages.push(i)
+        pages.push(i);
     }
 
     return(
